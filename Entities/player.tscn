@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://bf7s6fwpp2pdj"]
+
+[ext_resource type="Script" path="res://Entities/player.gd" id="1_l4qla"]
+[ext_resource type="Texture2D" uid="uid://bi77d22yfwguh" path="res://2D Assets/crosshair.png" id="2_tqj0f"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_smfnm"]
+radius = 0.311194
+height = 0.688864
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_oj3po"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nib5q"]
+shading_mode = 2
+specular_mode = 1
+albedo_color = Color(1, 0.803922, 1, 1)
+heightmap_scale = 0.326
+
+[node name="Player" type="CharacterBody3D"]
+collision_mask = 3
+script = ExtResource("1_l4qla")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0.0805521, 0)
+shape = SubResource("CapsuleShape3D_smfnm")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.273657, 0, 0, 0, 0.5, 0, 0.0957267, 0)
+mesh = SubResource("CylinderMesh_oj3po")
+surface_material_override/0 = SubResource("StandardMaterial3D_nib5q")
+
+[node name="Neck" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="Neck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.294681, 0.0063985)
+
+[node name="Sprite3D" type="Sprite3D" parent="Neck/Camera3D"]
+transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 0, 0, -1.29164)
+texture = ExtResource("2_tqj0f")

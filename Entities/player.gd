@@ -4,7 +4,7 @@ extends CharacterBody3D
 const MAX_SPEED = 4
 const ACCELERATION = 0.3
 const DECELLERATION = 0.2
-const GRAVITY = 14
+const GRAVITY = 12
 const JUMP_VELOCITY = 6
 const JUMP_SLOWDOWN = 0.8
 const SPEED_CUTOFF = 3

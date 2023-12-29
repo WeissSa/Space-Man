@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bf7s6fwpp2pdj"]
+[gd_scene load_steps=11 format=3 uid="uid://bf7s6fwpp2pdj"]
 
 [ext_resource type="Script" path="res://Entities/player.gd" id="1_l4qla"]
 [ext_resource type="Texture2D" uid="uid://bi77d22yfwguh" path="res://2D Assets/crosshair.png" id="2_tqj0f"]
@@ -15,24 +15,123 @@ specular_mode = 1
 albedo_color = Color(1, 0.803922, 1, 1)
 heightmap_scale = 0.326
 
+[sub_resource type="Animation" id="Animation_xhjtx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0.006)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D:fov")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [85.0]
+}
+
+[sub_resource type="Animation" id="Animation_pbt83"]
+resource_name = "ShakeWeak"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0.006), Vector3(0, -0.1, 0.006), Vector3(0, -0.1, 0.006), Vector3(0, 0, 0.006)]
+}
+
+[sub_resource type="Animation" id="Animation_yqx80"]
+resource_name = "JumpZoomout"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [85.0, 90.0]
+}
+
+[sub_resource type="Animation" id="Animation_p4j4e"]
+resource_name = "ShakeStrong"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0.006), Vector3(0, -0.1, 0.006), Vector3(0, -0.1, 0.006), Vector3(0, 0, 0.006)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wm3e8"]
+_data = {
+"JumpZoomout": SubResource("Animation_yqx80"),
+"RESET": SubResource("Animation_xhjtx"),
+"ShakeStrong": SubResource("Animation_p4j4e"),
+"ShakeWeak": SubResource("Animation_pbt83")
+}
+
 [node name="Player" type="CharacterBody3D"]
 collision_mask = 3
 script = ExtResource("1_l4qla")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.9, 0, 0, 0, 0.859806, 0, 0, 0, 0.9, 0, 0.101893, 0)
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0.108932, 0)
 shape = SubResource("CylinderShape3D_rgnmm")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.273657, 0, 0, 0, 0.5, 0, 0.0957267, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.283763, 0, 0, 0, 0.5, 0, 0.111117, 0)
+layers = 2
 mesh = SubResource("CylinderMesh_oj3po")
 surface_material_override/0 = SubResource("StandardMaterial3D_nib5q")
 
 [node name="Neck" type="Node3D" parent="."]
 
-[node name="Camera3D" type="Camera3D" parent="Neck"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.294681, 0.0063985)
+[node name="CameraParent" type="Node3D" parent="Neck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.295, 0.006)
 
-[node name="Sprite3D" type="Sprite3D" parent="Neck/Camera3D"]
-transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 0, 0, -1.29164)
+[node name="Camera3D" type="Camera3D" parent="Neck/CameraParent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.006)
+cull_mask = 1048573
+fov = 85.0
+
+[node name="Sprite3D" type="Sprite3D" parent="Neck/CameraParent/Camera3D"]
+transform = Transform3D(0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, 0, 0, -0.224562)
 texture = ExtResource("2_tqj0f")
+
+[node name="CameraShake" type="AnimationPlayer" parent="Neck/CameraParent"]
+libraries = {
+"": SubResource("AnimationLibrary_wm3e8")
+}
+blend_times = [&"ShakeWeak", &"ShakeStrong", 1.0, &"ShakeWeak", &"RESET", 1.0, &"JumpZoomout", &"RESET", 0.25, &"ShakeStrong", &"ShakeWeak", 1.0, &"RESET", &"ShakeWeak", 0.5, &"RESET", &"JumpZoomout", 0.1, &"RESET", &"ShakeStrong", 0.5]
+
+[node name="CoyoteTime" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true

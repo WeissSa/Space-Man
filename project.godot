@@ -59,3 +59,4 @@ move_down={
 
 3d_physics/layer_1="player"
 3d_physics/layer_2="platform"
+3d_physics/layer_4="void"

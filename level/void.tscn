@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://rsd0nxvduni0"]
+
+[ext_resource type="Script" path="res://Void.gd" id="1_ccfkt"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_rolf4"]
+
+[node name="Void" type="Area3D"]
+collision_layer = 8
+monitorable = false
+script = ExtResource("1_ccfkt")
+
+[node name="Node3D" type="CollisionShape3D" parent="."]
+shape = SubResource("WorldBoundaryShape3D_rolf4")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

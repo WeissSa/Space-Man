@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://Entities/player.gd" id="1_l4qla"]
 [ext_resource type="Texture2D" uid="uid://bi77d22yfwguh" path="res://2D Assets/crosshair.png" id="2_tqj0f"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_smfnm"]
-radius = 0.311194
-height = 0.688864
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_rgnmm"]
+height = 0.623384
+radius = 0.260249
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_oj3po"]
 
@@ -20,8 +20,8 @@ collision_mask = 3
 script = ExtResource("1_l4qla")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0.0805521, 0)
-shape = SubResource("CapsuleShape3D_smfnm")
+transform = Transform3D(0.9, 0, 0, 0, 0.859806, 0, 0, 0, 0.9, 0, 0.101893, 0)
+shape = SubResource("CylinderShape3D_rgnmm")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.273657, 0, 0, 0, 0.5, 0, 0.0957267, 0)

@@ -1,20 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://cyu0nw2spg2mw"]
+[gd_scene load_steps=8 format=3 uid="uid://cyu0nw2spg2mw"]
 
+[ext_resource type="Texture2D" uid="uid://coymwjofbkdx0" path="res://2D Assets/environment.png" id="1_embdn"]
 [ext_resource type="PackedScene" uid="uid://bf7s6fwpp2pdj" path="res://Entities/player.tscn" id="1_n7ea3"]
 [ext_resource type="PackedScene" uid="uid://b30fb8sa0lhjh" path="res://level/platform.tscn" id="2_ygtu2"]
+[ext_resource type="PackedScene" uid="uid://rsd0nxvduni0" path="res://level/void.tscn" id="3_2nptu"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jhvm7"]
-sky_top_color = Color(0.0648875, 0.00634483, 0.120755, 1)
-sky_horizon_color = Color(0.0648875, 0.00634483, 0.120755, 1)
-sky_curve = 0.0749998
-sky_energy_multiplier = 1.1
-sky_cover_modulate = Color(0.0648875, 0.00634483, 0.120755, 1)
-ground_bottom_color = Color(0.0648875, 0.00634483, 0.120755, 1)
-ground_horizon_color = Color(0.0648875, 0.00634483, 0.120755, 1)
-ground_curve = 0.0585629
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_3p7rw"]
+panorama = ExtResource("1_embdn")
 
 [sub_resource type="Sky" id="Sky_11ima"]
-sky_material = SubResource("ProceduralSkyMaterial_jhvm7")
+sky_material = SubResource("PanoramaSkyMaterial_3p7rw")
 
 [sub_resource type="Environment" id="Environment_s1n37"]
 background_mode = 2
@@ -35,7 +30,8 @@ environment = SubResource("Environment_s1n37")
 
 [node name="Player" parent="." instance=ExtResource("1_n7ea3")]
 
-[node name="platforms" type="Node" parent="."]
+[node name="platforms" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Platform2" parent="platforms" instance=ExtResource("2_ygtu2")]
 transform = Transform3D(5.59298, 0, 0, 0, 0.115463, 0, 0, 0, 5.7108, 0.00115693, -0.295116, 8.66261)
@@ -43,3 +39,11 @@ skeleton = NodePath("../Platform")
 
 [node name="Platform" parent="platforms" instance=ExtResource("2_ygtu2")]
 transform = Transform3D(6.49133, 0, 0, 0, 0.339799, 0, 0, 0, 5.56831, 0.000154436, -0.16301, 0.00631547)
+
+[node name="Platform3" parent="platforms" instance=ExtResource("2_ygtu2")]
+transform = Transform3D(4.5, 0, 0, 0, 0.3, 0, 0, 0, 1, 0, 0.694425, -5.14734)
+
+[node name="hazards" type="Node" parent="."]
+
+[node name="Void" parent="hazards" instance=ExtResource("3_2nptu")]
+transform = Transform3D(2.42672, 0, 0, 0, 1, 0, 0, 0, 3.04409, 0, -3.58678, 0)

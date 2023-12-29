@@ -32,6 +32,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_3ndxw")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_layer = 2
+collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("BoxShape3D_div4b")

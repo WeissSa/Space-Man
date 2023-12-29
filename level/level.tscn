@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cyu0nw2spg2mw"]
+[gd_scene load_steps=11 format=3 uid="uid://cyu0nw2spg2mw"]
 
 [ext_resource type="Texture2D" uid="uid://coymwjofbkdx0" path="res://2D Assets/environment.png" id="1_embdn"]
-[ext_resource type="PackedScene" uid="uid://bf7s6fwpp2pdj" path="res://Entities/player.tscn" id="1_n7ea3"]
 [ext_resource type="PackedScene" uid="uid://b30fb8sa0lhjh" path="res://level/platform.tscn" id="2_ygtu2"]
 [ext_resource type="PackedScene" uid="uid://rsd0nxvduni0" path="res://level/void.tscn" id="3_2nptu"]
+[ext_resource type="PackedScene" uid="uid://dmdh2bgtqefj3" path="res://level/planet.tscn" id="3_x8dvj"]
+[ext_resource type="PackedScene" uid="uid://cf4eb86twxk2w" path="res://Entities/player_hookshot.tscn" id="4_sjhb5"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_qoq7p"]
 
@@ -29,7 +30,7 @@ glow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.997593, 0.0600458, -0.0346673, 0, 0.499998, 0.866026, 0.0693348, 0.863942, -0.498795, -1.12483, 14, -12.1957)
+transform = Transform3D(0.0693348, 0.863942, -0.498795, -2.69087e-09, 0.499998, 0.866027, 0.997593, -0.0600458, 0.0346673, -25.6831, 14, -12.1957)
 light_indirect_energy = 1.646
 light_bake_mode = 1
 shadow_enabled = true
@@ -43,8 +44,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_5xgl7")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_s1n37")
-
-[node name="Player" parent="." instance=ExtResource("1_n7ea3")]
 
 [node name="platforms" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -62,7 +61,13 @@ transform = Transform3D(4.5, 0, 0, 0, 0.3, 0, 0, 0, 1, 0, 0.694425, -5.14734)
 [node name="Platform4" parent="platforms" instance=ExtResource("2_ygtu2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.42386, 0.433151, -1.24477e-07)
 
+[node name="planet" parent="platforms" instance=ExtResource("3_x8dvj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.88391e-07, 2.54403, 4.44267)
+
 [node name="hazards" type="Node" parent="."]
 
 [node name="Void" parent="hazards" instance=ExtResource("3_2nptu")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -7.15118, 0)
+
+[node name="PlayerHookshot" parent="." instance=ExtResource("4_sjhb5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.27999, 5)

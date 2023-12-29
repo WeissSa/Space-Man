@@ -9,7 +9,7 @@ const JUMP_VELOCITY = 6
 const JUMP_SLOWDOWN = 0.8
 const SPEED_CUTOFF = 3
 
-enum STATES {RUNNING, JUMPING, FALLING, STANDING}
+enum STATES {RUNNING, JUMPING, FALLING, STANDING, HOOKSHOTTING}
 
 var mouse_sensitivity = 0.005
 var direction_2D: Vector2 = Vector2(0, 0)
@@ -21,12 +21,35 @@ var initial_jump_basis: Basis
 @onready var coyote_time := $CoyoteTime
 @onready var camera_shake := $Neck/CameraParent/CameraShake
 @onready var camera_node := $Neck/CameraParent/Camera3D
+@onready var hookshot_head = $Neck/CameraParent/Camera3D/HookshotHeadModel
+@onready var reticle = $Neck/CameraParent/Camera3D/Reticle
+
+var Hook: PackedScene = preload("res://Entities/hook.tscn")
+const HOOK_SPEED: int = 17
+
+func shoot_hookshot():
+	var player = get_tree().get_root()
+	var hook = Hook.instantiate()
+	hook.transform = reticle.global_transform
+	hook.linear_velocity = camera_node.global_transform.basis * Vector3(0, 0, -HOOK_SPEED)
+	player.add_child(hook)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		return
 	elif event.is_action_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+	if event.is_action_pressed("shoot") and hookshot_head.visible:
+
+		hookshot_head.visible = false
+		shoot_hookshot()
+	elif event.is_action_released("shoot") and not hookshot_head.visible:
+		hookshot_head.visible = true
+		var hook = get_tree().get_root().get_node("Hook")
+		if hook:
+			hook.queue_free()
 	
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:

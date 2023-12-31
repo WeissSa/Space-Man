@@ -9,7 +9,7 @@ const JUMP_VELOCITY = 6
 const JUMP_SLOWDOWN = 0.8
 const SPEED_CUTOFF = 3
 
-enum STATES {RUNNING, JUMPING, FALLING, STANDING, HOOKSHOTTING}
+enum STATES {RUNNING, JUMPING, FALLING, STANDING}
 
 var mouse_sensitivity = 0.005
 var direction_2D: Vector2 = Vector2(0, 0)
@@ -26,13 +26,17 @@ var initial_jump_basis: Basis
 
 var Hook: PackedScene = preload("res://Entities/hook.tscn")
 const HOOK_SPEED: int = 17
+const GRAPPLE_FORCE = 5
+var is_grappling: bool = false
+var is_near_hook: bool = false
+var initial_radius: float
 
 func shoot_hookshot():
-	var player = get_tree().get_root()
+	var world = get_tree().get_root()
 	var hook = Hook.instantiate()
 	hook.transform = reticle.global_transform
 	hook.linear_velocity = camera_node.global_transform.basis * Vector3(0, 0, -HOOK_SPEED)
-	player.add_child(hook)
+	world.add_child(hook)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
@@ -42,12 +46,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 	if event.is_action_pressed("shoot") and hookshot_head.visible:
-
 		hookshot_head.visible = false
 		shoot_hookshot()
 	elif event.is_action_released("shoot") and not hookshot_head.visible:
 		hookshot_head.visible = true
-		var hook = get_tree().get_root().get_node("Hook")
+		var hook = get_tree().get_root().get_node_or_null("Hook")
 		if hook:
 			hook.queue_free()
 	
@@ -60,7 +63,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func apply_vertical_movement(delta: float) -> void:
 	if not is_on_floor() and coyote_time.is_stopped():
-		velocity.y -= GRAVITY * delta
+		var multiplier: float = 1
+		if is_near_hook:
+			multiplier = -1
+		velocity.y -= GRAVITY * delta * multiplier
 		if velocity.y < 0:
 			state = STATES.FALLING
 	
@@ -69,12 +75,13 @@ func apply_vertical_movement(delta: float) -> void:
 		velocity.y -= GRAVITY * delta / 2
 	
 	if state == STATES.JUMPING and initial_jump_basis == Basis.IDENTITY and (
-		velocity.x > 0 or velocity.y > 0):
+		velocity.x > 0 or velocity.y > 0) and not is_grappling:
 		initial_jump_basis = neck.transform.basis
 	
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and (
-		is_on_floor() or not coyote_time.is_stopped()):
+		is_on_floor() or not coyote_time.is_stopped()
+		):
 		velocity.y = JUMP_VELOCITY
 		state = STATES.JUMPING
 		if state == STATES.RUNNING:
@@ -93,22 +100,25 @@ func apply_horizontal_movement(delta: float) -> void:
 	if state == STATES.STANDING and (input_dir.x != 0 or input_dir.y != 0):
 		state = STATES.RUNNING
 	
-	
+
 	# read inputs and factor in acceleration
 	direction_2D.x = clamp(input_dir.x * ACCELERATION * delta + direction_2D.x,
 		-1, 1)
-
 	direction_2D.y = clamp(input_dir.y * ACCELERATION * delta + direction_2D.y,
 		-1, 1)
 	
+	if is_grappling and input_dir.y != 0:
+		input_dir.y = -(abs(input_dir.y + 1) / 2)
 	# convert inputs into normalized direction vector
 	# keep relative direction if jumping
 	var direction: Vector3 = (neck.transform.basis * Vector3(input_dir.x,
 			0, input_dir.y)).normalized()
 	
-	if state in [STATES.JUMPING, STATES.FALLING]:
+	
+	
+	if state in [STATES.JUMPING, STATES.FALLING] and not is_grappling and initial_jump_basis != Basis.IDENTITY:
 		direction += (initial_jump_basis * Vector3(input_dir.x,
-			0, input_dir.y)).normalized()
+			0, input_dir.y))
 		direction = direction / 2
 
 		
@@ -131,7 +141,7 @@ func handle_inputs(direction: Vector3) -> void:
 			-MAX_SPEED * abs(direction.z), 
 			MAX_SPEED * abs(direction.z)
 		)
-	else:
+	elif not is_grappling:
 		velocity.x = move_toward(velocity.x, 0, DECELLERATION)
 		velocity.z = move_toward(velocity.z, 0, DECELLERATION)
 
@@ -148,9 +158,31 @@ func animate():
 	else:
 		camera_shake.play("RESET")
 
+		
+
+func handle_grapple(delta):
+	var hook: Node3D = get_tree().get_root().get_node("Hook")
+	if initial_radius != INF:
+		initial_radius = (hook.global_position - global_position).length()
+	if hook.freeze:
+		is_grappling = true
+
+		var direction_vector = hook.global_position - global_position
+		if direction_vector.length() < 2:
+			is_near_hook = true
+		
+		if direction_vector.length() <= initial_radius:
+			velocity += direction_vector * GRAPPLE_FORCE * delta
 
 func _physics_process(delta: float) -> void:
-
+	
+	if get_tree().get_root().get_node_or_null("Hook"):
+		handle_grapple(delta)
+	else:
+		is_grappling = false
+		is_near_hook = false
+		initial_radius = INF
+	
 	apply_horizontal_movement(delta)
 	
 	apply_vertical_movement(delta)

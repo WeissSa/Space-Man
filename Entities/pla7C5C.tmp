@@ -123,7 +123,7 @@ _data = {
 }
 
 [node name="PlayerHookshot" type="CharacterBody3D"]
-collision_mask = 11
+collision_mask = 15
 script = ExtResource("1_vq3oo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

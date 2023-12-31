@@ -6,7 +6,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_pvams"]
 size = Vector3(1, 1, 0.494629)
 
-[node name="Hook" type="RigidBody3D"]
+[node name="Hook" type="RigidBody3D" groups=["hookshot"]]
 collision_layer = 4
 collision_mask = 6
 center_of_mass_mode = 1
@@ -23,3 +23,5 @@ transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0, -0.00129038, -0.0
 shape = SubResource("BoxShape3D_pvams")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]

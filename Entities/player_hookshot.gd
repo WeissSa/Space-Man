@@ -38,6 +38,12 @@ func shoot_hookshot():
 	hook.linear_velocity = camera_node.global_transform.basis * Vector3(0, 0, -HOOK_SPEED)
 	world.add_child(hook)
 
+func release_hookshot():
+	hookshot_head.visible = true
+	var hook = get_tree().get_root().get_node_or_null("Hook")
+	if hook:
+		hook.queue_free()
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -49,16 +55,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		hookshot_head.visible = false
 		shoot_hookshot()
 	elif event.is_action_released("shoot") and not hookshot_head.visible:
-		hookshot_head.visible = true
-		var hook = get_tree().get_root().get_node_or_null("Hook")
-		if hook:
-			hook.queue_free()
+		release_hookshot()
 	
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
 			neck.rotate_y(-event.relative.x * mouse_sensitivity)
 			camera.rotate_x(-event.relative.y * mouse_sensitivity)
-			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(55))
+			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(70))
 			
 
 func apply_vertical_movement(delta: float) -> void:
@@ -87,6 +90,9 @@ func apply_vertical_movement(delta: float) -> void:
 		if state == STATES.RUNNING:
 			initial_jump_basis = neck.transform.basis
 		coyote_time.stop()
+	elif is_grappling and Input.is_action_just_pressed("jump"):
+		release_hookshot()
+		velocity.y = max(velocity.y, 4)
 	elif is_on_floor():
 		state = STATES.RUNNING
 		initial_jump_basis = Basis.IDENTITY

@@ -1,17 +1,17 @@
 extends CharacterBody3D
 
 
-const MAX_SPEED = 4
-const ACCELERATION = 0.3
-const DECELLERATION = 0.2
-const GRAVITY = 12
-const JUMP_VELOCITY = 6
-const JUMP_SLOWDOWN = 0.8
-const SPEED_CUTOFF = 3
+const MAX_SPEED := 4
+const ACCELERATION := 0.3
+const DECELLERATION := 0.2
+const GRAVITY := 12
+const JUMP_VELOCITY := 6
+const JUMP_SLOWDOWN := 0.8
+const SPEED_CUTOFF := 3
 
 enum STATES {RUNNING, JUMPING, FALLING, STANDING}
 
-var mouse_sensitivity = 0.005
+var mouse_sensitivity: float = 0.005
 var direction_2D: Vector2 = Vector2(0, 0)
 var state: STATES = STATES.RUNNING
 var initial_jump_basis: Basis
@@ -26,8 +26,8 @@ var initial_jump_basis: Basis
 @onready var shoot = $AudioStreamPlayer
 
 var Hook: PackedScene = preload("res://Entities/hook.tscn")
-const HOOK_SPEED: int = 17
-const GRAPPLE_FORCE = 5
+const HOOK_SPEED := 17
+const GRAPPLE_FORCE := 5
 var is_grappling: bool = false
 var is_near_hook: bool = false
 var initial_radius: float
@@ -99,7 +99,13 @@ func apply_vertical_movement(delta: float) -> void:
 	elif is_on_floor():
 		state = STATES.RUNNING
 		initial_jump_basis = Basis.IDENTITY
-	
+		
+
+func clamp_acceleration(input_dir: Vector2, delta: float):
+	return Vector2(
+		clamp(input_dir.x * ACCELERATION * delta + direction_2D.x, -1, 1),
+		clamp(input_dir.y * ACCELERATION * delta + direction_2D.y, -1, 1)
+	)
 
 func apply_horizontal_movement(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
@@ -110,12 +116,9 @@ func apply_horizontal_movement(delta: float) -> void:
 		state = STATES.RUNNING
 	
 
-	# read inputs and factor in acceleration
-	direction_2D.x = clamp(input_dir.x * ACCELERATION * delta + direction_2D.x,
-		-1, 1)
-	direction_2D.y = clamp(input_dir.y * ACCELERATION * delta + direction_2D.y,
-		-1, 1)
+	direction_2D = clamp_acceleration(input_dir, delta)
 	
+	# makes sure you cannot backup while grappling
 	if is_grappling and input_dir.y != 0:
 		input_dir.y = -(abs(input_dir.y + 1) / 2)
 	# convert inputs into normalized direction vector
@@ -123,8 +126,7 @@ func apply_horizontal_movement(delta: float) -> void:
 	var direction: Vector3 = (neck.transform.basis * Vector3(input_dir.x,
 			0, input_dir.y)).normalized()
 	
-	
-	
+
 	if state in [STATES.JUMPING, STATES.FALLING] and not is_grappling and initial_jump_basis != Basis.IDENTITY:
 		direction += (initial_jump_basis * Vector3(input_dir.x,
 			0, input_dir.y))
@@ -140,16 +142,11 @@ func apply_horizontal_movement(delta: float) -> void:
 		
 	handle_inputs(direction)
 
+
 func handle_inputs(direction: Vector3) -> void:
 	if direction:
-		velocity.x = clamp(direction.x * MAX_SPEED,
-			-MAX_SPEED * abs(direction.x), 
-			MAX_SPEED * abs(direction.x)
-		)
-		velocity.z = clamp(direction.z * MAX_SPEED,
-			-MAX_SPEED * abs(direction.z), 
-			MAX_SPEED * abs(direction.z)
-		)
+		velocity.x = direction.x * MAX_SPEED
+		velocity.z = direction.z * MAX_SPEED
 	elif not is_grappling:
 		velocity.x = move_toward(velocity.x, 0, DECELLERATION)
 		velocity.z = move_toward(velocity.z, 0, DECELLERATION)
@@ -169,14 +166,14 @@ func animate():
 
 		
 
-func handle_grapple(delta):
+func handle_grapple(delta: float):
 	var hook: Node3D = get_tree().get_root().get_node("Hook")
 	if initial_radius != INF:
 		initial_radius = (hook.global_position - global_position).length()
 	if hook.freeze:
 		is_grappling = true
 
-		var direction_vector = hook.global_position - global_position
+		var direction_vector: Vector3 = hook.global_position - global_position
 		if direction_vector.length() < 2:
 			is_near_hook = true
 		

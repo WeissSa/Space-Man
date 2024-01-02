@@ -23,7 +23,6 @@ func onRelease():
 
 
 func _on_body_entered(body: Node3D):
-	print(body.collision_layer)
 	if body.collision_layer == 4 or body.collision_layer == 6:
 		look_at(body.global_position)
 		onHit()

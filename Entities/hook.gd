@@ -1,11 +1,20 @@
 extends RigidBody3D
 
+@onready var audio = $AudioStreamPlayer3D
+
 var Rope: PackedScene = preload("res://Model/rope.tscn")
 var rope: Node3D
 const MAX_LENGTH = 8
 
+const ATTACH := preload("res://SFX/attach.ogg")
+const DETACH := preload("res://SFX/detach.ogg")
+
 func onHit():
 	freeze = true
+	audio.stream = ATTACH
+	audio.play()
+	await get_tree().create_timer(0.2).timeout
+	audio.stop()
 	
 func onRelease():
 	queue_free()
@@ -14,10 +23,16 @@ func onRelease():
 
 
 func _on_body_entered(body: Node3D):
+	print(body.collision_layer)
 	if body.collision_layer == 4 or body.collision_layer == 6:
 		look_at(body.global_position)
 		onHit()
 	else:
+		
+		if audio.stream != DETACH:
+			audio.stream = DETACH
+			audio.play()
+			await get_tree().create_timer(0.4).timeout
 		onRelease()
 
 

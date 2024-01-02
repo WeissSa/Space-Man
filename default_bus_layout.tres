@@ -1,0 +1,27 @@
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://bid7ka8ub357v"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_x2dwp"]
+resource_name = "Reverb"
+predelay_feedback = 0.61
+room_size = 0.01
+damping = 0.73
+spread = 0.47
+hipass = 0.23
+dry = 0.72
+wet = 0.26
+
+[sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_hjldu"]
+resource_name = "PitchShift"
+pitch_scale = 2.0
+
+[resource]
+bus/1/name = &"Player"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("AudioEffectReverb_x2dwp")
+bus/1/effect/0/enabled = true
+bus/1/effect/1/effect = SubResource("AudioEffectPitchShift_hjldu")
+bus/1/effect/1/enabled = true

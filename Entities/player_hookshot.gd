@@ -23,6 +23,7 @@ var initial_jump_basis: Basis
 @onready var camera_node := $Neck/CameraParent/Camera3D
 @onready var hookshot_head = $Neck/CameraParent/Camera3D/HookshotHeadModel
 @onready var reticle = $Neck/CameraParent/Camera3D/Reticle
+@onready var shoot = $AudioStreamPlayer
 
 var Hook: PackedScene = preload("res://Entities/hook.tscn")
 const HOOK_SPEED: int = 17
@@ -53,8 +54,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("shoot") and hookshot_head.visible:
 		hookshot_head.visible = false
+		shoot.play()
 		shoot_hookshot()
 	elif event.is_action_released("shoot") and not hookshot_head.visible:
+		shoot.stop()
 		release_hookshot()
 	
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:

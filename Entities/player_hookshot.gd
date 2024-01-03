@@ -23,7 +23,8 @@ var initial_jump_basis: Basis
 @onready var camera_node := $Neck/CameraParent/Camera3D
 @onready var hookshot_head = $Neck/CameraParent/Camera3D/HookshotHeadModel
 @onready var reticle = $Neck/CameraParent/Camera3D/Reticle
-@onready var shoot = $AudioStreamPlayer
+@onready var shoot = $Shoot
+@onready var walk = $Walk
 
 var Hook: PackedScene = preload("res://Entities/hook.tscn")
 const HOOK_SPEED := 17
@@ -153,18 +154,12 @@ func handle_inputs(direction: Vector3) -> void:
 
 func animate():
 	var speed: float = sqrt(velocity.x ** 2 + velocity.z ** 2)
-
-	var need_animation: bool = len(camera_shake.get_queue()) == 0
-	if state == STATES.RUNNING and speed < 2:
-		if need_animation:
-			camera_shake.queue("ShakeWeak")
-	elif state == STATES.RUNNING and speed > 3:
-		if need_animation:
-			camera_shake.queue("ShakeStrong")
+	
+	if state == STATES.RUNNING and speed > 1 and is_on_floor():
+		camera_shake.play("ShakeStrong")
+		walk.pitch_scale = randf_range(0.35, 0.45)
 	else:
 		camera_shake.play("RESET")
-
-		
 
 func handle_grapple(delta: float):
 	var hook: Node3D = get_tree().get_root().get_node("Hook")
@@ -202,7 +197,3 @@ func _physics_process(delta: float) -> void:
 		state = STATES.STANDING
 		
 	animate()
-	
-
-	
-	

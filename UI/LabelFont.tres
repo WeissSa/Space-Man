@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://1chrfcj4nwwf"]
+
+[ext_resource type="FontFile" uid="uid://2rbha66pmf7" path="res://font/Ghibo Talk.otf" id="1_2s5j1"]
+
+[resource]
+font = ExtResource("1_2s5j1")
+font_size = 80
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4

@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://bid7ka8ub357v"]
+[gd_resource type="AudioBusLayout" load_steps=4 format=3 uid="uid://bid7ka8ub357v"]
 
 [sub_resource type="AudioEffectReverb" id="AudioEffectReverb_x2dwp"]
 resource_name = "Reverb"
@@ -14,6 +14,9 @@ wet = 0.26
 resource_name = "PitchShift"
 pitch_scale = 2.0
 
+[sub_resource type="AudioEffectPhaser" id="AudioEffectPhaser_m4bjo"]
+resource_name = "Phaser"
+
 [resource]
 bus/1/name = &"Player"
 bus/1/solo = false
@@ -25,3 +28,11 @@ bus/1/effect/0/effect = SubResource("AudioEffectReverb_x2dwp")
 bus/1/effect/0/enabled = true
 bus/1/effect/1/effect = SubResource("AudioEffectPitchShift_hjldu")
 bus/1/effect/1/enabled = true
+bus/2/name = &"BG"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = 0.0
+bus/2/send = &"Master"
+bus/2/effect/0/effect = SubResource("AudioEffectPhaser_m4bjo")
+bus/2/effect/0/enabled = true

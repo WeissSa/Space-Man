@@ -33,6 +33,11 @@ var is_grappling: bool = false
 var is_near_hook: bool = false
 var initial_radius: float
 
+var is_paused: bool = false
+
+func set_is_paused(value: bool):
+	is_paused = value
+
 func shoot_hookshot():
 	var world = get_tree().get_root()
 	var hook = Hook.instantiate()
@@ -50,9 +55,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		return
-	elif event.is_action_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-
+	
 	if event.is_action_pressed("shoot") and hookshot_head.visible:
 		hookshot_head.visible = false
 		shoot.play()
@@ -176,6 +179,8 @@ func handle_grapple(delta: float):
 			velocity += direction_vector * GRAPPLE_FORCE * delta
 
 func _physics_process(delta: float) -> void:
+	if is_paused:
+		return
 	
 	if get_tree().get_root().get_node_or_null("Hook"):
 		handle_grapple(delta)

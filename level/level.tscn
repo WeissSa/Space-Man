@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://cyu0nw2spg2mw"]
+[gd_scene load_steps=13 format=3 uid="uid://cyu0nw2spg2mw"]
 
 [ext_resource type="Texture2D" uid="uid://coymwjofbkdx0" path="res://2D Assets/environment.png" id="1_embdn"]
 [ext_resource type="PackedScene" uid="uid://b30fb8sa0lhjh" path="res://level/platform.tscn" id="2_ygtu2"]
 [ext_resource type="PackedScene" uid="uid://rsd0nxvduni0" path="res://level/void.tscn" id="3_2nptu"]
 [ext_resource type="PackedScene" uid="uid://dmdh2bgtqefj3" path="res://level/planet.tscn" id="3_x8dvj"]
 [ext_resource type="PackedScene" uid="uid://cf4eb86twxk2w" path="res://Entities/player_hookshot.tscn" id="4_sjhb5"]
+[ext_resource type="AudioStream" uid="uid://di36wbw87gffa" path="res://SFX/BGMusic.ogg" id="6_8xav3"]
+[ext_resource type="PackedScene" uid="uid://be14r3c7kl4ni" path="res://UI/ui.tscn" id="7_s32qh"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_qoq7p"]
 
@@ -72,5 +74,12 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -2.95997, 0)
 [node name="PlayerHookshot" parent="." instance=ExtResource("4_sjhb5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.27999, 5)
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+[node name="BGMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_8xav3")
+volume_db = -30.0
 autoplay = true
+mix_target = 1
+bus = &"BG"
+
+[node name="UI" parent="." instance=ExtResource("7_s32qh")]
+show_behind_parent = true

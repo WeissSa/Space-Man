@@ -276,7 +276,6 @@ transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 3.10699, -11.9878, 40.7661, -43.
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -2.95997, 0)
 
 [node name="PlayerHookshot" parent="." instance=ExtResource("4_sjhb5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23.0881, -43.9038)
 
 [node name="BGMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_8xav3")

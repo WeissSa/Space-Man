@@ -34,8 +34,7 @@ func _on_body_entered(body: Node3D):
 		onRelease()
 
 
-func _integrate_forces(state):
-	look_at(global_position + linear_velocity)
+
 
 
 func _on_tree_entered():

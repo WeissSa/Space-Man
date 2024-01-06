@@ -1,13 +1,17 @@
-[gd_scene load_steps=14 format=3 uid="uid://cyu0nw2spg2mw"]
+[gd_scene load_steps=18 format=3 uid="uid://cyu0nw2spg2mw"]
 
 [ext_resource type="Texture2D" uid="uid://coymwjofbkdx0" path="res://2D Assets/environment.png" id="1_embdn"]
+[ext_resource type="Script" path="res://level/level.gd" id="1_fb8da"]
 [ext_resource type="PackedScene" uid="uid://rsd0nxvduni0" path="res://level/void.tscn" id="3_2nptu"]
 [ext_resource type="PackedScene" uid="uid://bhjp3md7et73c" path="res://level/metal_platform.tscn" id="3_33dlb"]
 [ext_resource type="PackedScene" uid="uid://bdjf2t82jncwk" path="res://level/grapple_platform.tscn" id="3_uvoqx"]
 [ext_resource type="FontFile" uid="uid://2rbha66pmf7" path="res://font/Ghibo Talk.otf" id="4_7wldp"]
 [ext_resource type="PackedScene" uid="uid://cf4eb86twxk2w" path="res://Entities/player_hookshot.tscn" id="4_sjhb5"]
+[ext_resource type="PackedScene" uid="uid://2m2tc41k561u" path="res://level/transition_wall.tscn" id="5_lk40w"]
 [ext_resource type="AudioStream" uid="uid://di36wbw87gffa" path="res://SFX/BGMusic.ogg" id="6_8xav3"]
 [ext_resource type="PackedScene" uid="uid://be14r3c7kl4ni" path="res://UI/ui.tscn" id="7_s32qh"]
+[ext_resource type="PackedScene" uid="uid://b30fb8sa0lhjh" path="res://level/platform.tscn" id="11_t8l4q"]
+[ext_resource type="PackedScene" uid="uid://dvjsxvmhq3mjw" path="res://level/disable_tutorial.tscn" id="12_ghgri"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_qoq7p"]
 
@@ -29,8 +33,9 @@ sky = SubResource("Sky_11ima")
 tonemap_mode = 2
 glow_enabled = true
 
-[node name="Level" type="Node3D"]
+[node name="Level" type="Node3D" groups=["level"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_fb8da")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.0693348, 0.863942, -0.498795, -2.69087e-09, 0.499998, 0.866027, 0.997593, -0.0600458, 0.0346673, -25.6831, 14, -12.1957)
@@ -48,96 +53,149 @@ surface_material_override/0 = SubResource("StandardMaterial3D_5xgl7")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_s1n37")
 
-[node name="platforms" type="Node3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.885076, -1.00681)
+[node name="tutorial_platforms" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -7.54979e-08, 0, 1, 0, 1.50996e-07, 0, -0.5, 0, -0.885076, -1.00681)
 
-[node name="Platform7" parent="platforms" instance=ExtResource("3_33dlb")]
+[node name="Platform7" parent="tutorial_platforms" instance=ExtResource("3_33dlb")]
 transform = Transform3D(2.83406e-07, 6.41327, 2.84217e-14, 6.48357, -2.80333e-07, 1.30227e-07, 5.66812e-07, 1.7053e-13, -1.48962, -0.288716, 3.457, -4.15656)
 
-[node name="tunnel" type="Node3D" parent="platforms"]
+[node name="Platform8" parent="tutorial_platforms" instance=ExtResource("3_33dlb")]
+transform = Transform3D(2.83406e-07, 6.41327, 2.84217e-14, 6.48357, -2.80333e-07, 1.30227e-07, 5.66812e-07, 1.7053e-13, -1.48962, -2.84217e-14, 10.8179, 11.52)
 
-[node name="Platform2" parent="platforms/tunnel" instance=ExtResource("3_33dlb")]
+[node name="tunnel" type="Node3D" parent="tutorial_platforms"]
+
+[node name="Platform2" parent="tutorial_platforms/tunnel" instance=ExtResource("3_33dlb")]
 transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
 skeleton = NodePath("../..")
 
-[node name="Platform4" parent="platforms/tunnel" instance=ExtResource("3_33dlb")]
+[node name="Platform4" parent="tutorial_platforms/tunnel" instance=ExtResource("3_33dlb")]
 transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 10, 0, 6.91456, 0)
 skeleton = NodePath("../..")
 
-[node name="Platform3" parent="platforms/tunnel" instance=ExtResource("3_33dlb")]
+[node name="Platform3" parent="tutorial_platforms/tunnel" instance=ExtResource("3_33dlb")]
 transform = Transform3D(-3.53155e-07, -1, -8.74228e-07, 8.07925, -4.37114e-08, 8.74228e-07, -7.06311e-07, -8.74228e-08, 10, 2.95263, 3.45728, 2.38419e-07)
 skeleton = NodePath("../..")
 
-[node name="Platform6" parent="platforms/tunnel" instance=ExtResource("3_33dlb")]
+[node name="Platform6" parent="tutorial_platforms/tunnel" instance=ExtResource("3_33dlb")]
 transform = Transform3D(-3.53155e-07, -1, -8.74228e-07, 8.07925, -4.37114e-08, 8.74228e-07, -7.06311e-07, -8.74228e-08, 10, -2.953, 3.457, 0)
 skeleton = NodePath("../..")
 
-[node name="tunnel3" type="Node3D" parent="platforms"]
+[node name="tunnel3" type="Node3D" parent="tutorial_platforms"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.43685e-06, 3.97373, 16.4357)
 
-[node name="Platform2" parent="platforms/tunnel3" instance=ExtResource("3_33dlb")]
+[node name="Platform2" parent="tutorial_platforms/tunnel3" instance=ExtResource("3_33dlb")]
 transform = Transform3D(5, 0, 0, 0, 5.23486, 0, 0, 0, 10, 0, -3.76405, 0)
 skeleton = NodePath("../..")
 
-[node name="Platform4" parent="platforms/tunnel3" instance=ExtResource("3_33dlb")]
+[node name="Platform4" parent="tutorial_platforms/tunnel3" instance=ExtResource("3_33dlb")]
 transform = Transform3D(5, 0, 0, 0, 3.66955, 0, 0, 0, 10, 0, 3.43917, 0)
 skeleton = NodePath("../..")
 
-[node name="Platform3" parent="platforms/tunnel3" instance=ExtResource("3_33dlb")]
-transform = Transform3D(-3.53155e-07, -1, -8.74228e-07, 8.07925, -4.37114e-08, 8.74228e-07, -7.06311e-07, -8.74228e-08, 10, 2.95263, 1.2381, 0)
+[node name="Platform3" parent="tutorial_platforms/tunnel3" instance=ExtResource("3_33dlb")]
+transform = Transform3D(-7.73691e-07, -1.008, -8.81309e-07, 17.7, -4.40611e-08, 8.81312e-07, -1.54739e-06, -8.81222e-08, 10.081, 2.95263, 1.23826, 0)
 skeleton = NodePath("../..")
 
-[node name="Platform6" parent="platforms/tunnel3" instance=ExtResource("3_33dlb")]
-transform = Transform3D(-3.53155e-07, -1, -8.74228e-07, 8.07925, -4.37114e-08, 8.74228e-07, -7.06311e-07, -8.74228e-08, 10, -2.953, 1.23782, 0)
+[node name="Platform6" parent="tutorial_platforms/tunnel3" instance=ExtResource("3_33dlb")]
+transform = Transform3D(-7.73691e-07, -1.008, -8.81309e-07, 17.7, -4.40611e-08, 8.81312e-07, -1.54739e-06, -8.81222e-08, 10.081, -2.953, 1.23766, 0)
 skeleton = NodePath("../..")
 
-[node name="tunnel4" type="Node3D" parent="platforms"]
+[node name="tunnel4" type="Node3D" parent="tutorial_platforms"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.448126, -1.909e-06, 3.97373, 21.8364)
 
-[node name="Platform2" parent="platforms/tunnel4" instance=ExtResource("3_33dlb")]
-transform = Transform3D(5, 0, 0, 0, 5.23486, 0, 0, 0, 10, 0, -3.76405, 0)
+[node name="Platform2" parent="tutorial_platforms/tunnel4" instance=ExtResource("3_33dlb")]
+transform = Transform3D(5, 0, 0, 0, 5.23486, 0, 0, 0, 5.73176, -7.70799e-08, -3.76405, 1.96746)
 skeleton = NodePath("../..")
 
-[node name="Platform4" parent="platforms/tunnel4" instance=ExtResource("3_33dlb")]
-transform = Transform3D(5, -2.57239e-07, 6.44269e-07, 1.95882e-07, -2.87017e-07, -16.4453, 1.95882e-07, 6.56617, -7.18848e-07, -3.1788e-07, 1.7546, 8.11407)
+[node name="Platform4" parent="tutorial_platforms/tunnel4" instance=ExtResource("3_33dlb")]
+transform = Transform3D(5, -1.93871e-08, 2.84268e-14, 0, -2.16313e-08, -16.6, 1.95882e-07, 0.494866, -7.2561e-07, -2.02426e-07, 1.7264, 5.167)
 skeleton = NodePath("../..")
 
-[node name="Platform3" parent="platforms/tunnel4" instance=ExtResource("3_33dlb")]
-transform = Transform3D(-6.29838e-07, -1, -8.74228e-07, 14.409, -4.37114e-08, 8.74228e-07, -1.25968e-06, -8.74227e-08, 10, 2.95263, 2.87601, 0)
+[node name="Platform3" parent="tutorial_platforms/tunnel4" instance=ExtResource("3_33dlb")]
+transform = Transform3D(-6.29838e-07, -1, -5.89252e-07, 14.409, -4.37114e-08, 5.89252e-07, -1.25968e-06, -8.74227e-08, 6.74026, 2.95263, 2.87601, 2.56504)
 skeleton = NodePath("../..")
 
-[node name="Platform6" parent="platforms/tunnel4" instance=ExtResource("3_33dlb")]
-transform = Transform3D(-6.29838e-07, -1, -8.74228e-07, 14.409, -4.37114e-08, 8.74228e-07, -1.25968e-06, -8.74227e-08, 10, -2.953, 2.87551, 0)
+[node name="Platform6" parent="tutorial_platforms/tunnel4" instance=ExtResource("3_33dlb")]
+transform = Transform3D(-6.29838e-07, -1, -5.89252e-07, 14.409, -4.37114e-08, 5.89252e-07, -1.25968e-06, -8.74227e-08, 6.74026, -2.953, 2.87551, 2.56505)
 skeleton = NodePath("../..")
 
-[node name="roof_grapple" parent="platforms/tunnel4" instance=ExtResource("3_uvoqx")]
-transform = Transform3D(5, 3.01992e-08, 1.50996e-06, 7.54979e-07, -0.2, -8.74228e-07, 7.54979e-07, 1.74845e-08, -10, -9.65081e-08, 7.42473, 2.46351)
+[node name="roof_grapple" parent="tutorial_platforms/tunnel4" instance=ExtResource("3_uvoqx")]
+transform = Transform3D(5, 1.50996e-07, 1.50996e-06, 7.54979e-07, -1, -8.74226e-07, 7.54979e-07, 8.74226e-08, -10, 0, 8, 2.464)
 
-[node name="Label3D" type="Label3D" parent="platforms/tunnel4"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74227e-08, 0, -1, 0.03, 0, 4.83)
+[node name="roof_grapple2" parent="tutorial_platforms/tunnel4" instance=ExtResource("3_uvoqx")]
+transform = Transform3D(5, 1.50996e-07, 4.40477e-06, 7.54979e-07, -1, -2.55024e-06, 7.5498e-07, 8.74226e-08, -29.1714, 4.22677e-07, 12.9858, -8.32509)
+
+[node name="roof_grapple3" parent="tutorial_platforms/tunnel4" instance=ExtResource("3_uvoqx")]
+transform = Transform3D(-9.73536e-07, 1.05, 1.13596e-05, 5, 2.04443e-07, -1.28613e-06, -2.20448e-07, 4.08885e-07, -29.171, -2.96924, 12.5762, -8.32509)
+
+[node name="roof_grapple4" parent="tutorial_platforms/tunnel4" instance=ExtResource("3_uvoqx")]
+transform = Transform3D(-9.73536e-07, 1.05, 1.13596e-05, 5, 2.04443e-07, -1.28613e-06, -2.20448e-07, 4.08885e-07, -29.171, 2.969, 12.576, -8.325)
+
+[node name="roof_grapple5" parent="tutorial_platforms/tunnel4" instance=ExtResource("3_uvoqx")]
+transform = Transform3D(9.55343e-15, 4.37114e-08, 5.61296, 5, -4.37114e-08, -3.47662e-22, 2.18557e-07, 1, -2.4535e-07, 0.168119, 12.576, -22.614)
+
+[node name="Label3D" type="Label3D" parent="tutorial_platforms/tunnel4"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74227e-08, 0, -1, 0.03, 0, 4.91581)
 text = "Shoot Up
 (Hold Down Button)"
 font = ExtResource("4_7wldp")
 font_size = 100
 
-[node name="tunnel2" type="Node3D" parent="platforms"]
+[node name="Label3D2" type="Label3D" parent="tutorial_platforms/tunnel4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03, 7.44098, -21.2)
+text = "Turn Around
+"
+font = ExtResource("4_7wldp")
+font_size = 100
+
+[node name="tunnel2" type="Node3D" parent="tutorial_platforms"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.22921e-06, 0, 14.0606)
 
-[node name="Platform2" parent="platforms/tunnel2" instance=ExtResource("3_33dlb")]
-transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 10, -2.26306e-07, 0, 1.29432)
+[node name="Platform2" parent="tutorial_platforms/tunnel2" instance=ExtResource("3_33dlb")]
+transform = Transform3D(5, 0, 0, 0, 3.50295, 0, 0, 0, 10, -2.26304e-07, -1.14435, 1.29432)
 skeleton = NodePath("../..")
 
-[node name="Platform4" parent="platforms/tunnel2" instance=ExtResource("3_33dlb")]
+[node name="Platform4" parent="tutorial_platforms/tunnel2" instance=ExtResource("3_33dlb")]
 transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 14.4977, -4.08115e-07, 6.91456, 2.33414)
 skeleton = NodePath("../..")
 
-[node name="Platform3" parent="platforms/tunnel2" instance=ExtResource("3_33dlb")]
-transform = Transform3D(-3.53155e-07, -1, -1.26743e-06, 8.07925, -4.37114e-08, 1.26743e-06, -7.06311e-07, -8.74228e-08, 14.4977, 2.95263, 3.45728, 2.33414)
+[node name="Platform3" parent="tutorial_platforms/tunnel2" instance=ExtResource("3_33dlb")]
+transform = Transform3D(-3.53155e-07, -1, -5.81732e-07, 8.07925, -4.37114e-08, 5.81732e-07, -7.06311e-07, -8.74228e-08, 6.65424, 2.95263, 3.45728, 5.75002)
 skeleton = NodePath("../..")
 
-[node name="Platform6" parent="platforms/tunnel2" instance=ExtResource("3_33dlb")]
-transform = Transform3D(-3.53155e-07, -1, -1.26743e-06, 8.07925, -4.37114e-08, 1.26743e-06, -7.06311e-07, -8.74228e-08, 14.4977, -2.953, 3.457, 2.33414)
+[node name="Platform6" parent="tutorial_platforms/tunnel2" instance=ExtResource("3_33dlb")]
+transform = Transform3D(-3.53155e-07, -1, -5.81732e-07, 8.07925, -4.37114e-08, 5.81732e-07, -7.06311e-07, -8.74228e-08, 6.65424, -2.953, 3.457, 5.75001)
 skeleton = NodePath("../..")
+
+[node name="TransitionWall" parent="tutorial_platforms" instance=ExtResource("5_lk40w")]
+transform = Transform3D(-3.81491, -8.74228e-08, 9.20939e-15, 0, -4.37114e-08, -2.40997, 3.3351e-07, -1, 1.05343e-07, -2.15703e-06, 15, 24.6736)
+
+[node name="omnilight" type="OmniLight3D" parent="tutorial_platforms"]
+transform = Transform3D(-0.258378, 0.963498, 0.0700886, 0.863942, 0.197998, 0.463034, 0.432255, 0.18019, -0.883565, 0.532869, 3.98722, 0.36339)
+light_energy = 0.677
+light_bake_mode = 1
+omni_range = 3225.4
+omni_attenuation = 0.034674
+
+[node name="omnilight2" type="OmniLight3D" parent="tutorial_platforms"]
+transform = Transform3D(-0.258378, 0.963498, 0.0700886, 0.863942, 0.197998, 0.463034, 0.432255, 0.18019, -0.883565, 0.532867, 3.98722, 16.8182)
+light_energy = 0.677
+light_bake_mode = 1
+omni_range = 3225.4
+omni_attenuation = 0.034674
+
+[node name="omnilight3" type="OmniLight3D" parent="tutorial_platforms"]
+transform = Transform3D(-0.258378, 0.963498, 0.0700886, 0.863942, 0.197998, 0.463034, 0.432255, 0.18019, -0.883565, 0.532867, 3.98722, 21.7304)
+light_energy = 0.677
+light_bake_mode = 1
+omni_range = 3225.4
+omni_attenuation = 0.034674
+
+[node name="omnilight4" type="OmniLight3D" parent="tutorial_platforms"]
+transform = Transform3D(-0.258378, 0.963498, 0.0700882, 0.863942, 0.197998, 0.463034, 0.432255, 0.18019, -0.883565, 0.532868, 14.8494, 15.5312)
+light_energy = 0.677
+light_bake_mode = 1
+omni_range = 3225.4
+omni_attenuation = 0.034674
 
 [node name="hazards" type="Node" parent="."]
 
@@ -156,23 +214,10 @@ bus = &"BG"
 [node name="UI" parent="." instance=ExtResource("7_s32qh")]
 show_behind_parent = true
 
-[node name="omnilight" type="OmniLight3D" parent="."]
-transform = Transform3D(0.258378, -0.963498, -0.0700887, 0.863942, 0.197997, 0.463034, -0.432255, -0.18019, 0.883565, -0.532869, 3.10214, -1.3702)
-light_energy = 0.677
-light_bake_mode = 1
-omni_range = 3225.4
-omni_attenuation = 0.034674
+[node name="level_platforms" type="Node3D" parent="."]
 
-[node name="omnilight2" type="OmniLight3D" parent="."]
-transform = Transform3D(0.258378, -0.963498, -0.0700887, 0.863942, 0.197997, 0.463034, -0.432255, -0.18019, 0.883565, -0.532869, 3.10214, -17.825)
-light_energy = 0.677
-light_bake_mode = 1
-omni_range = 3225.4
-omni_attenuation = 0.034674
+[node name="starting_platform" parent="level_platforms" instance=ExtResource("11_t8l4q")]
+transform = Transform3D(5.01784, 0, 0, 0, 1, 0, 0, 0, 4.00843, 0, 12.5, -15.3302)
 
-[node name="omnilight3" type="OmniLight3D" parent="."]
-transform = Transform3D(0.258378, -0.963498, -0.0700887, 0.863942, 0.197997, 0.463034, -0.432255, -0.18019, 0.883565, -0.532869, 3.10214, -22.7372)
-light_energy = 0.677
-light_bake_mode = 1
-omni_range = 3225.4
-omni_attenuation = 0.034674
+[node name="disable_tutorial" parent="level_platforms/starting_platform" instance=ExtResource("12_ghgri")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

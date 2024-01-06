@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvjsxvmhq3mjw"]
+
+[ext_resource type="Script" path="res://level/disable_tutorial.gd" id="1_7mhnq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k7ygy"]
+margin = 0.0
+
+[node name="disable_tutorial" type="Area3D"]
+collision_layer = 8
+monitorable = false
+script = ExtResource("1_7mhnq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_k7ygy")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

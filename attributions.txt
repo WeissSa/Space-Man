@@ -4,7 +4,8 @@ Rope texture:
 	<a href="https://www.freepik.com/free-vector/seamless-texture-knitting-wicker-basket-corduroy_22535523.htm#query=cartoon%20rope%20texture%20game&position=0&from_view=search&track=ais&uuid=f9fb23f1-329d-4a34-aad2-bedbc1586ceb">Image by upklyak</a> on Freepik
 Metallic texture:
 	<a href="https://www.freepik.com/free-vector/metal-texture-background_4227518.htm#query=metallic%20texture%20cartoon&position=18&from_view=search&track=ais&uuid=d0e77036-473f-42b9-9e0c-90a565894f5a">Image by kjpargeter</a> on Freepik
-
+Metallic ground texture:
+	<a href="https://www.vecteezy.com/free-vector/cartoon-texture-metal">Cartoon Texture Metal Vectors by Vecteezy</a>
 
 SFX from Joel Steudler
 BG Music from JDB

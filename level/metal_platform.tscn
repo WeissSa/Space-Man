@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhjp3md7et73c"]
+
+[ext_resource type="Texture2D" uid="uid://03voohhttk4m" path="res://2D Assets/metal_platform.jpg" id="1_6x2vb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_aybvp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ihhoe"]
+diffuse_mode = 3
+albedo_color = Color(0.388235, 0.0745098, 0.647059, 1)
+albedo_texture = ExtResource("1_6x2vb")
+metallic = 0.47
+metallic_specular = 0.6
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_div4b"]
+
+[sub_resource type="BoxOccluder3D" id="BoxOccluder3D_c3504"]
+
+[node name="Platform" type="MeshInstance3D"]
+mesh = SubResource("BoxMesh_aybvp")
+surface_material_override/0 = SubResource("StandardMaterial3D_ihhoe")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_div4b")
+
+[node name="OccluderInstance3D" type="OccluderInstance3D" parent="."]
+occluder = SubResource("BoxOccluder3D_c3504")

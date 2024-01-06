@@ -24,7 +24,6 @@ func onRelease():
 
 func _on_body_entered(body: Node3D):
 	if body.collision_layer == 4 or body.collision_layer == 6:
-		look_at(body.global_position)
 		onHit()
 	else:
 		
@@ -36,7 +35,7 @@ func _on_body_entered(body: Node3D):
 
 
 func _integrate_forces(state):
-	look_at(linear_velocity)
+	look_at(global_position + linear_velocity)
 
 
 func _on_tree_entered():

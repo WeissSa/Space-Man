@@ -72,3 +72,15 @@ shoot={
 3d_physics/layer_2="platform"
 3d_physics/layer_3="Hook"
 3d_physics/layer_4="void"
+
+[rendering]
+
+occlusion_culling/bvh_build_quality=1
+global_illumination/gi/use_half_resolution=true
+environment/ssao/quality=0
+environment/ssil/quality=0
+occlusion_culling/occlusion_rays_per_thread=128
+environment/glow/upscale_mode=0
+global_illumination/sdfgi/frames_to_converge=1
+environment/volumetric_fog/use_filter=0
+occlusion_culling/use_occlusion_culling=true

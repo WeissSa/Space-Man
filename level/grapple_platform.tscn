@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dmdh2bgtqefj3"]
+[gd_scene load_steps=7 format=3 uid="uid://bdjf2t82jncwk"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_rrmif"]
+[sub_resource type="BoxMesh" id="BoxMesh_adak0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yilw3"]
 diffuse_mode = 3
@@ -9,9 +9,9 @@ emission_enabled = true
 emission = Color(0.513726, 0.905882, 0.6, 1)
 emission_energy_multiplier = 2.98
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_7pnj5"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_fswfy"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_7hhjc"]
+[sub_resource type="BoxMesh" id="BoxMesh_stl1g"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8nvmn"]
 transparency = 1
@@ -21,8 +21,8 @@ albedo_color = Color(0.113725, 0.113725, 0.113725, 1)
 [sub_resource type="SphereOccluder3D" id="SphereOccluder3D_nh56d"]
 radius = 0.5
 
-[node name="planet" type="MeshInstance3D"]
-mesh = SubResource("SphereMesh_rrmif")
+[node name="GrapplePlatform" type="MeshInstance3D"]
+mesh = SubResource("BoxMesh_adak0")
 surface_material_override/0 = SubResource("StandardMaterial3D_yilw3")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
@@ -30,10 +30,10 @@ collision_layer = 6
 collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("SphereShape3D_7pnj5")
+shape = SubResource("BoxShape3D_fswfy")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_7hhjc")
+mesh = SubResource("BoxMesh_stl1g")
 surface_material_override/0 = SubResource("StandardMaterial3D_8nvmn")
 
 [node name="OccluderInstance3D" type="OccluderInstance3D" parent="."]

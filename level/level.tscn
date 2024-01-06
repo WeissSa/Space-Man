@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://cyu0nw2spg2mw"]
+[gd_scene load_steps=14 format=3 uid="uid://cyu0nw2spg2mw"]
 
 [ext_resource type="Texture2D" uid="uid://coymwjofbkdx0" path="res://2D Assets/environment.png" id="1_embdn"]
-[ext_resource type="PackedScene" uid="uid://b30fb8sa0lhjh" path="res://level/platform.tscn" id="2_ygtu2"]
 [ext_resource type="PackedScene" uid="uid://rsd0nxvduni0" path="res://level/void.tscn" id="3_2nptu"]
-[ext_resource type="PackedScene" uid="uid://dmdh2bgtqefj3" path="res://level/planet.tscn" id="3_x8dvj"]
+[ext_resource type="PackedScene" uid="uid://bhjp3md7et73c" path="res://level/metal_platform.tscn" id="3_33dlb"]
+[ext_resource type="PackedScene" uid="uid://bdjf2t82jncwk" path="res://level/grapple_platform.tscn" id="3_uvoqx"]
+[ext_resource type="FontFile" uid="uid://2rbha66pmf7" path="res://font/Ghibo Talk.otf" id="4_7wldp"]
 [ext_resource type="PackedScene" uid="uid://cf4eb86twxk2w" path="res://Entities/player_hookshot.tscn" id="4_sjhb5"]
 [ext_resource type="AudioStream" uid="uid://di36wbw87gffa" path="res://SFX/BGMusic.ogg" id="6_8xav3"]
 [ext_resource type="PackedScene" uid="uid://be14r3c7kl4ni" path="res://UI/ui.tscn" id="7_s32qh"]
@@ -48,23 +49,94 @@ surface_material_override/0 = SubResource("StandardMaterial3D_5xgl7")
 environment = SubResource("Environment_s1n37")
 
 [node name="platforms" type="Node3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.885076, -1.00681)
 
-[node name="Platform2" parent="platforms" instance=ExtResource("2_ygtu2")]
-transform = Transform3D(5.59298, 0, 0, 0, 0.115463, 0, 0, 0, 5.7108, 0.00115693, -0.295116, 8.66261)
-skeleton = NodePath("../Platform")
+[node name="Platform7" parent="platforms" instance=ExtResource("3_33dlb")]
+transform = Transform3D(2.83406e-07, 6.41327, 2.84217e-14, 6.48357, -2.80333e-07, 1.30227e-07, 5.66812e-07, 1.7053e-13, -1.48962, -0.288716, 3.457, -4.15656)
 
-[node name="Platform" parent="platforms" instance=ExtResource("2_ygtu2")]
-transform = Transform3D(6.49133, 0, 0, 0, 0.339799, 0, 0, 0, 5.56831, 0.000154436, -0.16301, 0.00631547)
+[node name="tunnel" type="Node3D" parent="platforms"]
 
-[node name="Platform3" parent="platforms" instance=ExtResource("2_ygtu2")]
-transform = Transform3D(4.5, 0, 0, 0, 0.3, 0, 0, 0, 1, 0, 0.694425, -5.14734)
+[node name="Platform2" parent="platforms/tunnel" instance=ExtResource("3_33dlb")]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+skeleton = NodePath("../..")
 
-[node name="Platform4" parent="platforms" instance=ExtResource("2_ygtu2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.42386, 0.433151, -1.24477e-07)
+[node name="Platform4" parent="platforms/tunnel" instance=ExtResource("3_33dlb")]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 10, 0, 6.91456, 0)
+skeleton = NodePath("../..")
 
-[node name="planet" parent="platforms" instance=ExtResource("3_x8dvj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.88391e-07, 2.54403, 4.44267)
+[node name="Platform3" parent="platforms/tunnel" instance=ExtResource("3_33dlb")]
+transform = Transform3D(-3.53155e-07, -1, -8.74228e-07, 8.07925, -4.37114e-08, 8.74228e-07, -7.06311e-07, -8.74228e-08, 10, 2.95263, 3.45728, 2.38419e-07)
+skeleton = NodePath("../..")
+
+[node name="Platform6" parent="platforms/tunnel" instance=ExtResource("3_33dlb")]
+transform = Transform3D(-3.53155e-07, -1, -8.74228e-07, 8.07925, -4.37114e-08, 8.74228e-07, -7.06311e-07, -8.74228e-08, 10, -2.953, 3.457, 0)
+skeleton = NodePath("../..")
+
+[node name="tunnel3" type="Node3D" parent="platforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.43685e-06, 3.97373, 16.4357)
+
+[node name="Platform2" parent="platforms/tunnel3" instance=ExtResource("3_33dlb")]
+transform = Transform3D(5, 0, 0, 0, 5.23486, 0, 0, 0, 10, 0, -3.76405, 0)
+skeleton = NodePath("../..")
+
+[node name="Platform4" parent="platforms/tunnel3" instance=ExtResource("3_33dlb")]
+transform = Transform3D(5, 0, 0, 0, 3.66955, 0, 0, 0, 10, 0, 3.43917, 0)
+skeleton = NodePath("../..")
+
+[node name="Platform3" parent="platforms/tunnel3" instance=ExtResource("3_33dlb")]
+transform = Transform3D(-3.53155e-07, -1, -8.74228e-07, 8.07925, -4.37114e-08, 8.74228e-07, -7.06311e-07, -8.74228e-08, 10, 2.95263, 1.2381, 0)
+skeleton = NodePath("../..")
+
+[node name="Platform6" parent="platforms/tunnel3" instance=ExtResource("3_33dlb")]
+transform = Transform3D(-3.53155e-07, -1, -8.74228e-07, 8.07925, -4.37114e-08, 8.74228e-07, -7.06311e-07, -8.74228e-08, 10, -2.953, 1.23782, 0)
+skeleton = NodePath("../..")
+
+[node name="tunnel4" type="Node3D" parent="platforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.448126, -1.909e-06, 3.97373, 21.8364)
+
+[node name="Platform2" parent="platforms/tunnel4" instance=ExtResource("3_33dlb")]
+transform = Transform3D(5, 0, 0, 0, 5.23486, 0, 0, 0, 10, 0, -3.76405, 0)
+skeleton = NodePath("../..")
+
+[node name="Platform4" parent="platforms/tunnel4" instance=ExtResource("3_33dlb")]
+transform = Transform3D(5, -2.57239e-07, 6.44269e-07, 1.95882e-07, -2.87017e-07, -16.4453, 1.95882e-07, 6.56617, -7.18848e-07, -3.1788e-07, 1.7546, 8.11407)
+skeleton = NodePath("../..")
+
+[node name="Platform3" parent="platforms/tunnel4" instance=ExtResource("3_33dlb")]
+transform = Transform3D(-6.29838e-07, -1, -8.74228e-07, 14.409, -4.37114e-08, 8.74228e-07, -1.25968e-06, -8.74227e-08, 10, 2.95263, 2.87601, 0)
+skeleton = NodePath("../..")
+
+[node name="Platform6" parent="platforms/tunnel4" instance=ExtResource("3_33dlb")]
+transform = Transform3D(-6.29838e-07, -1, -8.74228e-07, 14.409, -4.37114e-08, 8.74228e-07, -1.25968e-06, -8.74227e-08, 10, -2.953, 2.87551, 0)
+skeleton = NodePath("../..")
+
+[node name="roof_grapple" parent="platforms/tunnel4" instance=ExtResource("3_uvoqx")]
+transform = Transform3D(5, 3.01992e-08, 1.50996e-06, 7.54979e-07, -0.2, -8.74228e-07, 7.54979e-07, 1.74845e-08, -10, -9.65081e-08, 7.42473, 2.46351)
+
+[node name="Label3D" type="Label3D" parent="platforms/tunnel4"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.25, 0, 4.47394)
+text = "Shoot Up"
+font = ExtResource("4_7wldp")
+font_size = 100
+
+[node name="tunnel2" type="Node3D" parent="platforms"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.22921e-06, 0, 14.0606)
+
+[node name="Platform2" parent="platforms/tunnel2" instance=ExtResource("3_33dlb")]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 10, -2.26306e-07, 0, 1.29432)
+skeleton = NodePath("../..")
+
+[node name="Platform4" parent="platforms/tunnel2" instance=ExtResource("3_33dlb")]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 14.4977, -4.08115e-07, 6.91456, 2.33414)
+skeleton = NodePath("../..")
+
+[node name="Platform3" parent="platforms/tunnel2" instance=ExtResource("3_33dlb")]
+transform = Transform3D(-3.53155e-07, -1, -1.26743e-06, 8.07925, -4.37114e-08, 1.26743e-06, -7.06311e-07, -8.74228e-08, 14.4977, 2.95263, 3.45728, 2.33414)
+skeleton = NodePath("../..")
+
+[node name="Platform6" parent="platforms/tunnel2" instance=ExtResource("3_33dlb")]
+transform = Transform3D(-3.53155e-07, -1, -1.26743e-06, 8.07925, -4.37114e-08, 1.26743e-06, -7.06311e-07, -8.74228e-08, 14.4977, -2.953, 3.457, 2.33414)
+skeleton = NodePath("../..")
 
 [node name="hazards" type="Node" parent="."]
 
@@ -72,7 +144,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.88391e-07, 2.54403, 4.4426
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -2.95997, 0)
 
 [node name="PlayerHookshot" parent="." instance=ExtResource("4_sjhb5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.27999, 5)
 
 [node name="BGMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_8xav3")
@@ -83,3 +154,24 @@ bus = &"BG"
 
 [node name="UI" parent="." instance=ExtResource("7_s32qh")]
 show_behind_parent = true
+
+[node name="omnilight" type="OmniLight3D" parent="."]
+transform = Transform3D(0.258378, -0.963498, -0.0700887, 0.863942, 0.197997, 0.463034, -0.432255, -0.18019, 0.883565, -0.532869, 3.10214, -1.3702)
+light_energy = 0.677
+light_bake_mode = 1
+omni_range = 3225.4
+omni_attenuation = 0.034674
+
+[node name="omnilight2" type="OmniLight3D" parent="."]
+transform = Transform3D(0.258378, -0.963498, -0.0700887, 0.863942, 0.197997, 0.463034, -0.432255, -0.18019, 0.883565, -0.532869, 3.10214, -17.825)
+light_energy = 0.677
+light_bake_mode = 1
+omni_range = 3225.4
+omni_attenuation = 0.034674
+
+[node name="omnilight3" type="OmniLight3D" parent="."]
+transform = Transform3D(0.258378, -0.963498, -0.0700887, 0.863942, 0.197997, 0.463034, -0.432255, -0.18019, 0.883565, -0.532869, 3.10214, -22.7372)
+light_energy = 0.677
+light_bake_mode = 1
+omni_range = 3225.4
+omni_attenuation = 0.034674

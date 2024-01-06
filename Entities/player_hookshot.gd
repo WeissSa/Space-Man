@@ -14,7 +14,6 @@ enum STATES {RUNNING, JUMPING, FALLING, STANDING}
 var mouse_sensitivity: float = 0.005
 var direction_2D: Vector2 = Vector2(0, 0)
 var state: STATES = STATES.RUNNING
-var initial_jump_basis: Basis
 
 @onready var neck := $Neck
 @onready var camera := $Neck/CameraParent
@@ -28,7 +27,7 @@ var initial_jump_basis: Basis
 
 var Hook: PackedScene = preload("res://Entities/hook.tscn")
 const HOOK_SPEED := 17
-const GRAPPLE_FORCE := 5
+const GRAPPLE_FORCE := 8
 var is_grappling: bool = false
 var is_near_hook: bool = false
 var initial_radius: float
@@ -84,25 +83,18 @@ func apply_vertical_movement(delta: float) -> void:
 	if state == STATES.FALLING:
 		velocity.y -= GRAVITY * delta / 2
 	
-	if state == STATES.JUMPING and initial_jump_basis == Basis.IDENTITY and (
-		velocity.x > 0 or velocity.y > 0) and not is_grappling:
-		initial_jump_basis = neck.transform.basis
-	
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and (
 		is_on_floor() or not coyote_time.is_stopped()
 		):
 		velocity.y = JUMP_VELOCITY
 		state = STATES.JUMPING
-		if state == STATES.RUNNING:
-			initial_jump_basis = neck.transform.basis
 		coyote_time.stop()
 	elif is_grappling and Input.is_action_just_pressed("jump"):
 		release_hookshot()
 		velocity.y = max(velocity.y, 4)
 	elif is_on_floor():
 		state = STATES.RUNNING
-		initial_jump_basis = Basis.IDENTITY
 		
 
 func clamp_acceleration(input_dir: Vector2, delta: float):
@@ -129,21 +121,7 @@ func apply_horizontal_movement(delta: float) -> void:
 	# keep relative direction if jumping
 	var direction: Vector3 = (neck.transform.basis * Vector3(input_dir.x,
 			0, input_dir.y)).normalized()
-	
 
-	if state in [STATES.JUMPING, STATES.FALLING] and not is_grappling and initial_jump_basis != Basis.IDENTITY:
-		direction += (initial_jump_basis * Vector3(input_dir.x,
-			0, input_dir.y))
-		direction = direction / 2
-
-		
-			
-	# allow for precision in non-forward directions
-	if initial_jump_basis and initial_jump_basis != Basis.IDENTITY:
-		if input_dir.y > 0:
-			direction.z = direction.z * JUMP_SLOWDOWN
-		direction.x = direction.x * JUMP_SLOWDOWN
-		
 	handle_inputs(direction)
 
 

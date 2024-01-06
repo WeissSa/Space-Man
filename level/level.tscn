@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cyu0nw2spg2mw"]
+[gd_scene load_steps=19 format=3 uid="uid://cyu0nw2spg2mw"]
 
 [ext_resource type="Texture2D" uid="uid://coymwjofbkdx0" path="res://2D Assets/environment.png" id="1_embdn"]
 [ext_resource type="Script" path="res://level/level.gd" id="1_fb8da"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://2m2tc41k561u" path="res://level/transition_wall.tscn" id="5_lk40w"]
 [ext_resource type="AudioStream" uid="uid://di36wbw87gffa" path="res://SFX/BGMusic.ogg" id="6_8xav3"]
 [ext_resource type="PackedScene" uid="uid://be14r3c7kl4ni" path="res://UI/ui.tscn" id="7_s32qh"]
+[ext_resource type="PackedScene" uid="uid://dmdh2bgtqefj3" path="res://level/planet.tscn" id="9_7lx3i"]
 [ext_resource type="PackedScene" uid="uid://b30fb8sa0lhjh" path="res://level/platform.tscn" id="11_t8l4q"]
 [ext_resource type="PackedScene" uid="uid://dvjsxvmhq3mjw" path="res://level/disable_tutorial.tscn" id="12_ghgri"]
 
@@ -38,7 +39,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_fb8da")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.0693348, 0.863942, -0.498795, -2.69087e-09, 0.499998, 0.866027, 0.997593, -0.0600458, 0.0346673, -25.6831, 14, -12.1957)
+transform = Transform3D(0.0693348, 0.863942, -0.498795, -2.69087e-09, 0.499998, 0.866026, 0.997593, -0.0600458, 0.0346673, -10.6831, 25, -27.1957)
 light_indirect_energy = 1.646
 light_bake_mode = 1
 shadow_enabled = true
@@ -50,11 +51,40 @@ layers = 3
 mesh = SubResource("SphereMesh_qoq7p")
 surface_material_override/0 = SubResource("StandardMaterial3D_5xgl7")
 
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.412834, -0.910806, 0, 0.910806, -0.412834, -0.945726, 7.10336, -42.6996)
+light_indirect_energy = 1.646
+light_bake_mode = 1
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_max_distance = 189.1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DirectionalLight3D2"]
+transform = Transform3D(1, 0, -3.72529e-09, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+layers = 3
+mesh = SubResource("SphereMesh_qoq7p")
+surface_material_override/0 = SubResource("StandardMaterial3D_5xgl7")
+
+[node name="DirectionalLight3D3" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.827541, -0.511331, 0.231767, 0.517485, -0.854837, -0.0382463, 0.217679, 0.0882856, 0.972019, -24.1444, 19.6914, -14.6321)
+light_indirect_energy = 1.646
+light_bake_mode = 1
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_max_distance = 189.1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DirectionalLight3D3"]
+transform = Transform3D(1, 0, -3.72529e-09, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+layers = 3
+mesh = SubResource("SphereMesh_qoq7p")
+surface_material_override/0 = SubResource("StandardMaterial3D_5xgl7")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_s1n37")
 
 [node name="tutorial_platforms" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -7.54979e-08, 0, 1, 0, 1.50996e-07, 0, -0.5, 0, -0.885076, -1.00681)
+visible = false
 
 [node name="Platform7" parent="tutorial_platforms" instance=ExtResource("3_33dlb")]
 transform = Transform3D(2.83406e-07, 6.41327, 2.84217e-14, 6.48357, -2.80333e-07, 1.30227e-07, 5.66812e-07, 1.7053e-13, -1.48962, -0.288716, 3.457, -4.15656)
@@ -197,12 +227,49 @@ light_bake_mode = 1
 omni_range = 3225.4
 omni_attenuation = 0.034674
 
+[node name="level_platforms" type="Node3D" parent="."]
+
+[node name="starting_platform" parent="level_platforms" instance=ExtResource("11_t8l4q")]
+transform = Transform3D(5.01784, 0, 0, 0, 1, 0, 0, 0, 4.00843, 0, 12.5, -15.3302)
+
+[node name="disable_tutorial" parent="level_platforms/starting_platform" instance=ExtResource("12_ghgri")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="planet" parent="level_platforms" instance=ExtResource("9_7lx3i")]
+transform = Transform3D(0.0693348, 0.863942, -0.498795, -2.69087e-09, 0.499998, 0.866026, 0.997593, -0.0600458, 0.0346673, -1.42428, 18.1703, -20.4472)
+skeleton = NodePath("../../DirectionalLight3D")
+
+[node name="planet2" parent="level_platforms" instance=ExtResource("9_7lx3i")]
+transform = Transform3D(0.208004, 2.59183, -1.49638, -8.07261e-09, 1.49999, 2.59808, 2.99278, -0.180137, 0.104002, 0.603969, 26.0917, -38.6098)
+skeleton = NodePath("../../DirectionalLight3D")
+
+[node name="planet3" parent="level_platforms" instance=ExtResource("9_7lx3i")]
+transform = Transform3D(0.208004, 2.59183, -1.49638, -8.07261e-09, 1.49999, 2.59808, 2.99278, -0.180137, 0.104002, 0.603969, 31.4067, -45.245)
+skeleton = NodePath("../../DirectionalLight3D")
+
+[node name="planet4" parent="level_platforms" instance=ExtResource("9_7lx3i")]
+transform = Transform3D(0.208004, 2.59183, -1.49638, -8.07261e-09, 1.49999, 2.59808, 2.99278, -0.180137, 0.104002, -5.63082, 40.4065, -45.245)
+skeleton = NodePath("../../DirectionalLight3D")
+
+[node name="Platform" parent="level_platforms" instance=ExtResource("11_t8l4q")]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 5, 0.603969, 20.5502, -26.4269)
+
+[node name="Platform2" parent="level_platforms" instance=ExtResource("11_t8l4q")]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 3.10699, 0.603969, 21.7484, -44.4232)
+
+[node name="Platform3" parent="level_platforms" instance=ExtResource("11_t8l4q")]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 3.10699, 0.603969, 33.2713, -52.132)
+
+[node name="Platform4" parent="level_platforms" instance=ExtResource("11_t8l4q")]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 3.10699, -11.9878, 40.7661, -43.4524)
+
 [node name="hazards" type="Node" parent="."]
 
 [node name="Void" parent="hazards" instance=ExtResource("3_2nptu")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -2.95997, 0)
 
 [node name="PlayerHookshot" parent="." instance=ExtResource("4_sjhb5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24.442, -44.8262)
 
 [node name="BGMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_8xav3")
@@ -213,11 +280,3 @@ bus = &"BG"
 
 [node name="UI" parent="." instance=ExtResource("7_s32qh")]
 show_behind_parent = true
-
-[node name="level_platforms" type="Node3D" parent="."]
-
-[node name="starting_platform" parent="level_platforms" instance=ExtResource("11_t8l4q")]
-transform = Transform3D(5.01784, 0, 0, 0, 1, 0, 0, 0, 4.00843, 0, 12.5, -15.3302)
-
-[node name="disable_tutorial" parent="level_platforms/starting_platform" instance=ExtResource("12_ghgri")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

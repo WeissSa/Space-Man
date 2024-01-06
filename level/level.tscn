@@ -114,8 +114,9 @@ skeleton = NodePath("../..")
 transform = Transform3D(5, 3.01992e-08, 1.50996e-06, 7.54979e-07, -0.2, -8.74228e-07, 7.54979e-07, 1.74845e-08, -10, -9.65081e-08, 7.42473, 2.46351)
 
 [node name="Label3D" type="Label3D" parent="platforms/tunnel4"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.25, 0, 4.47394)
-text = "Shoot Up"
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74227e-08, 0, -1, 0.03, 0, 4.83)
+text = "Shoot Up
+(Hold Down Button)"
 font = ExtResource("4_7wldp")
 font_size = 100
 

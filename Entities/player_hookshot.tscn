@@ -187,7 +187,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.198044, -0.096798, -0.25974
 libraries = {
 "": SubResource("AnimationLibrary_wm3e8")
 }
-blend_times = [&"RESET", &"JumpZoomout", 0.1, &"RESET", &"ShakeStrong", 0.5, &"JumpZoomout", &"RESET", 0.25]
+blend_times = [&"RESET", &"ShakeStrong", 0.5, &"RESET", &"JumpZoomout", 0.1, &"JumpZoomout", &"RESET", 0.25]
 
 [node name="CoyoteTime" type="Timer" parent="."]
 wait_time = 0.25

@@ -4,7 +4,7 @@ extends RigidBody3D
 
 var Rope: PackedScene = preload("res://Model/rope.tscn")
 var rope: Node3D
-const MAX_LENGTH = 8
+const MAX_LENGTH = 10
 
 const ATTACH := preload("res://SFX/attach.ogg")
 const DETACH := preload("res://SFX/detach.ogg")

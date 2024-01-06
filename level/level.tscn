@@ -84,7 +84,6 @@ environment = SubResource("Environment_s1n37")
 
 [node name="tutorial_platforms" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -7.54979e-08, 0, 1, 0, 1.50996e-07, 0, -0.5, 0, -0.885076, -1.00681)
-visible = false
 
 [node name="Platform7" parent="tutorial_platforms" instance=ExtResource("3_33dlb")]
 transform = Transform3D(2.83406e-07, 6.41327, 2.84217e-14, 6.48357, -2.80333e-07, 1.30227e-07, 5.66812e-07, 1.7053e-13, -1.48962, -0.288716, 3.457, -4.15656)
@@ -236,19 +235,27 @@ transform = Transform3D(5.01784, 0, 0, 0, 1, 0, 0, 0, 4.00843, 0, 12.5, -15.3302
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="planet" parent="level_platforms" instance=ExtResource("9_7lx3i")]
-transform = Transform3D(0.0693348, 0.863942, -0.498795, -2.69087e-09, 0.499998, 0.866026, 0.997593, -0.0600458, 0.0346673, -1.42428, 18.1703, -20.4472)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.42428, 18.1703, -20.4472)
 skeleton = NodePath("../../DirectionalLight3D")
 
 [node name="planet2" parent="level_platforms" instance=ExtResource("9_7lx3i")]
-transform = Transform3D(0.208004, 2.59183, -1.49638, -8.07261e-09, 1.49999, 2.59808, 2.99278, -0.180137, 0.104002, 0.603969, 26.0917, -38.6098)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.603969, 26.0917, -38.6098)
 skeleton = NodePath("../../DirectionalLight3D")
 
 [node name="planet3" parent="level_platforms" instance=ExtResource("9_7lx3i")]
-transform = Transform3D(0.208004, 2.59183, -1.49638, -8.07261e-09, 1.49999, 2.59808, 2.99278, -0.180137, 0.104002, 0.603969, 31.4067, -45.245)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.603969, 31.4067, -45.245)
 skeleton = NodePath("../../DirectionalLight3D")
 
 [node name="planet4" parent="level_platforms" instance=ExtResource("9_7lx3i")]
-transform = Transform3D(0.208004, 2.59183, -1.49638, -8.07261e-09, 1.49999, 2.59808, 2.99278, -0.180137, 0.104002, -5.63082, 40.4065, -45.245)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -5.63082, 40.4065, -45.245)
+skeleton = NodePath("../../DirectionalLight3D")
+
+[node name="planet5" parent="level_platforms" instance=ExtResource("9_7lx3i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.80568, 39.3749, -43.2596)
+skeleton = NodePath("../../DirectionalLight3D")
+
+[node name="planet6" parent="level_platforms" instance=ExtResource("9_7lx3i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.75681, 41.3972, -43.2596)
 skeleton = NodePath("../../DirectionalLight3D")
 
 [node name="Platform" parent="level_platforms" instance=ExtResource("11_t8l4q")]
@@ -258,7 +265,7 @@ transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 5, 0.603969, 20.5502, -26.4269)
 transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 3.10699, 0.603969, 21.7484, -44.4232)
 
 [node name="Platform3" parent="level_platforms" instance=ExtResource("11_t8l4q")]
-transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 3.10699, 0.603969, 33.2713, -52.132)
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 3.10699, 0.603969, 33.2713, -51.0862)
 
 [node name="Platform4" parent="level_platforms" instance=ExtResource("11_t8l4q")]
 transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 3.10699, -11.9878, 40.7661, -43.4524)
@@ -269,7 +276,7 @@ transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 3.10699, -11.9878, 40.7661, -43.
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -2.95997, 0)
 
 [node name="PlayerHookshot" parent="." instance=ExtResource("4_sjhb5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24.442, -44.8262)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23.0881, -43.9038)
 
 [node name="BGMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_8xav3")

@@ -12,7 +12,10 @@ emission_enabled = true
 emission = Color(0.513726, 0.905882, 0.6, 1)
 emission_energy_multiplier = 2.98
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_wxtoy"]
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_7pnj5"]
+radius = 0.4
 
 [sub_resource type="SphereMesh" id="SphereMesh_7hhjc"]
 
@@ -21,23 +24,23 @@ transparency = 1
 blend_mode = 3
 albedo_color = Color(0.113725, 0.113725, 0.113725, 1)
 
-[sub_resource type="SphereOccluder3D" id="SphereOccluder3D_nh56d"]
-radius = 0.5
-
 [node name="planet" type="MeshInstance3D"]
 mesh = SubResource("SphereMesh_rrmif")
 surface_material_override/0 = SubResource("StandardMaterial3D_yilw3")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-collision_layer = 6
-collision_mask = 5
+[node name="Hook Collision" type="StaticBody3D" parent="."]
+collision_layer = 4
+collision_mask = 4
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hook Collision"]
+shape = SubResource("SphereShape3D_wxtoy")
+
+[node name="PlayerCollision" type="StaticBody3D" parent="."]
+collision_layer = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerCollision"]
 shape = SubResource("SphereShape3D_7pnj5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_7hhjc")
 surface_material_override/0 = SubResource("StandardMaterial3D_8nvmn")
-
-[node name="OccluderInstance3D" type="OccluderInstance3D" parent="."]
-occluder = SubResource("SphereOccluder3D_nh56d")

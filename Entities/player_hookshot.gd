@@ -26,7 +26,7 @@ var state: STATES = STATES.RUNNING
 @onready var walk = $Walk
 
 var Hook: PackedScene = preload("res://Entities/hook.tscn")
-const HOOK_SPEED := 17
+const HOOK_SPEED := 30
 const GRAPPLE_FORCE := 8
 var is_grappling: bool = false
 var is_near_hook: bool = false

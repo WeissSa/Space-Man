@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b30fb8sa0lhjh"]
+[gd_scene load_steps=6 format=3 uid="uid://b30fb8sa0lhjh"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_aybvp"]
 
@@ -26,8 +26,6 @@ transparency = 1
 blend_mode = 3
 albedo_color = Color(0.113725, 0.113725, 0.113725, 1)
 
-[sub_resource type="BoxOccluder3D" id="BoxOccluder3D_c3504"]
-
 [node name="Platform" type="MeshInstance3D"]
 mesh = SubResource("BoxMesh_aybvp")
 surface_material_override/0 = SubResource("StandardMaterial3D_3ndxw")
@@ -42,6 +40,3 @@ shape = SubResource("BoxShape3D_div4b")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_gprmp")
 surface_material_override/0 = SubResource("StandardMaterial3D_8nvmn")
-
-[node name="OccluderInstance3D" type="OccluderInstance3D" parent="."]
-occluder = SubResource("BoxOccluder3D_c3504")

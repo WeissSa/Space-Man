@@ -170,8 +170,9 @@ font = ExtResource("4_7wldp")
 font_size = 100
 
 [node name="Label3D2" type="Label3D" parent="tutorial_platforms/tunnel4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03, 7.44098, -21.2)
-text = "Turn Around
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03, 8.95216, -21.2)
+text = "Run Towards
+The light
 "
 font = ExtResource("4_7wldp")
 font_size = 100

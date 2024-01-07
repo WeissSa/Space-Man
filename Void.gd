@@ -5,5 +5,5 @@ func respawn_player():
 
 func _on_body_entered(body):
 	get_tree().call_group("hookshot", "_on_tree_exiting")
-	respawn_player()
+	get_tree().call_group("level", "respawn")
 

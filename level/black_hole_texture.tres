@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dll05e25p2ssi"]
+
+[resource]
+shading_mode = 0
+diffuse_mode = 3
+albedo_color = Color(0, 0, 0, 1)
+refraction_enabled = true
+refraction_scale = 0.45
+detail_blend_mode = 2
+disable_receive_shadows = true

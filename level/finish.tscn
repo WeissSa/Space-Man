@@ -1,0 +1,97 @@
+[gd_scene load_steps=8 format=3 uid="uid://df2a0lqdcbuun"]
+
+[ext_resource type="Material" uid="uid://dll05e25p2ssi" path="res://level/black_hole_texture.tres" id="1_oaa0f"]
+
+[sub_resource type="Curve" id="Curve_dn50b"]
+min_value = -2.0
+max_value = 2.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_yuxbt"]
+curve = SubResource("Curve_dn50b")
+
+[sub_resource type="Curve" id="Curve_tvomv"]
+max_value = 3.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_wmxun"]
+curve = SubResource("Curve_tvomv")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w04ci"]
+emission_shape_scale = Vector3(10, 1, 10)
+emission_shape = 1
+emission_sphere_radius = 1.0
+orbit_velocity_max = 0.3
+orbit_velocity_curve = SubResource("CurveTexture_yuxbt")
+gravity = Vector3(0, 0, 0)
+scale_over_velocity_curve = SubResource("CurveTexture_wmxun")
+
+[sub_resource type="SphereMesh" id="SphereMesh_congf"]
+material = ExtResource("1_oaa0f")
+radius = 0.1
+height = 0.2
+radial_segments = 10
+rings = 10
+
+[node name="Finish" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, -1.16709, 0)
+amount = 40
+lifetime = 3.0
+speed_scale = 2.0
+explosiveness = 0.3
+process_material = SubResource("ParticleProcessMaterial_w04ci")
+draw_pass_1 = SubResource("SphereMesh_congf")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 1.167, 0)
+amount = 40
+lifetime = 3.0
+speed_scale = 2.0
+explosiveness = 0.3
+process_material = SubResource("ParticleProcessMaterial_w04ci")
+draw_pass_1 = SubResource("SphereMesh_congf")
+
+[node name="GPUParticles3D3" type="GPUParticles3D" parent="."]
+transform = Transform3D(-8.74228e-09, -0.2, 0, 0.2, -8.74228e-09, 0, 0, 0, 0.2, 1.16705, -4.51293e-05, 0)
+amount = 40
+lifetime = 3.0
+speed_scale = 2.0
+explosiveness = 0.3
+process_material = SubResource("ParticleProcessMaterial_w04ci")
+draw_pass_1 = SubResource("SphereMesh_congf")
+
+[node name="GPUParticles3D4" type="GPUParticles3D" parent="."]
+transform = Transform3D(-8.74228e-09, -0.2, 0, 0.2, -8.74228e-09, 0, 0, 0, 0.2, -1.16705, -4.52313e-05, 0)
+amount = 40
+lifetime = 3.0
+speed_scale = 2.0
+explosiveness = 0.3
+process_material = SubResource("ParticleProcessMaterial_w04ci")
+draw_pass_1 = SubResource("SphereMesh_congf")
+
+[node name="GPUParticles3D5" type="GPUParticles3D" parent="."]
+transform = Transform3D(0.2, 0, -8.74228e-09, -8.74228e-09, 3.82137e-16, -0.2, 0, 0.2, 3.82137e-16, -5.10132e-08, -4.51293e-05, -1.16705)
+amount = 40
+lifetime = 3.0
+speed_scale = 2.0
+explosiveness = 0.3
+process_material = SubResource("ParticleProcessMaterial_w04ci")
+draw_pass_1 = SubResource("SphereMesh_congf")
+
+[node name="GPUParticles3D6" type="GPUParticles3D" parent="."]
+transform = Transform3D(0.2, 0, -8.74228e-09, -8.74228e-09, 3.82137e-16, -0.2, 0, 0.2, 3.82137e-16, 5.10132e-08, -4.52313e-05, 1.16705)
+amount = 40
+lifetime = 3.0
+speed_scale = 2.0
+explosiveness = 0.3
+process_material = SubResource("ParticleProcessMaterial_w04ci")
+draw_pass_1 = SubResource("SphereMesh_congf")
+
+[node name="GPUParticlesAttractorBox3D" type="GPUParticlesAttractorBox3D" parent="."]
+visible = false
+strength = 3.0
+size = Vector3(4, 4, 4)

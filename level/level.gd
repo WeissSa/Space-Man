@@ -13,6 +13,9 @@ func hide_tutorial():
 func respawn():
 	player.global_position = respawn_point
 	player.neck.rotation = Vector3(0, 0, 0)
+	player.camera.rotation = Vector3(0, 0, 0)
+
+
 	
 
 

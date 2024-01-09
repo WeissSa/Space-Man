@@ -16,6 +16,6 @@ func respawn():
 	player.camera.rotation = Vector3(0, 0, 0)
 
 
-	
-
+func end_level():
+	get_tree().quit()
 

@@ -9,7 +9,7 @@ const JUMP_VELOCITY := 6
 const JUMP_SLOWDOWN := 0.8
 const SPEED_CUTOFF := 3
 
-enum STATES {RUNNING, JUMPING, FALLING, STANDING}
+enum STATES {RUNNING, JUMPING, FALLING, STANDING, GRAVITATING}
 
 var mouse_sensitivity: float = 0.005
 var direction_2D: Vector2 = Vector2(0, 0)
@@ -28,6 +28,7 @@ var state: STATES = STATES.RUNNING
 var Hook: PackedScene = preload("res://Entities/hook.tscn")
 const HOOK_SPEED := 30
 const GRAPPLE_FORCE := 8
+const NEUTRAL_ROPE_LENGTH := 0.5
 var is_grappling: bool = false
 var is_near_hook: bool = false
 var initial_radius: float
@@ -36,6 +37,9 @@ var is_paused: bool = false
 
 func set_is_paused(value: bool):
 	is_paused = value
+
+func set_gravitating():
+	state = STATES.GRAVITATING
 
 func shoot_hookshot():
 	var world = get_tree().get_root()
@@ -75,6 +79,8 @@ func apply_vertical_movement(delta: float) -> void:
 		var multiplier: float = 1
 		if is_near_hook:
 			multiplier = -1
+			if 0 >= velocity.y and velocity.y >= - MAX_SPEED:
+				multiplier -= 1
 		velocity.y -= GRAVITY * delta * multiplier
 		if velocity.y < 0:
 			state = STATES.FALLING
@@ -154,22 +160,34 @@ func handle_grapple(delta: float):
 			is_near_hook = true
 		
 		if direction_vector.length() <= initial_radius:
-			velocity += direction_vector * GRAPPLE_FORCE * delta
+			var grapple_vector: Vector3 = direction_vector.normalized() * GRAPPLE_FORCE
+			grapple_vector = grapple_vector * (direction_vector.length() - NEUTRAL_ROPE_LENGTH)
+			velocity +=  grapple_vector * delta 
+
+func handle_gravitation(delta):
+	var finish: Node3D = get_tree().get_root().get_node_or_null("Level/Finish")
+	if finish:
+		var direction_vector: Vector3 = (finish.global_position - global_position) 
+		velocity = direction_vector * direction_vector.length()
+
 
 func _physics_process(delta: float) -> void:
+
 	if is_paused:
 		return
-	
-	if get_tree().get_root().get_node_or_null("Hook"):
-		handle_grapple(delta)
+	if state != STATES.GRAVITATING:
+		if get_tree().get_root().get_node_or_null("Hook"):
+			handle_grapple(delta)
+		else:
+			is_grappling = false
+			is_near_hook = false
+			initial_radius = INF
+		
+		apply_horizontal_movement(delta)
+		
+		apply_vertical_movement(delta)
 	else:
-		is_grappling = false
-		is_near_hook = false
-		initial_radius = INF
-	
-	apply_horizontal_movement(delta)
-	
-	apply_vertical_movement(delta)
+		handle_gravitation(delta)
 	
 	var was_on_floor: bool = is_on_floor()
 	move_and_slide()

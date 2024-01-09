@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://df2a0lqdcbuun"]
+[gd_scene load_steps=11 format=3 uid="uid://df2a0lqdcbuun"]
 
 [ext_resource type="Material" uid="uid://dll05e25p2ssi" path="res://level/black_hole_texture.tres" id="1_oaa0f"]
+[ext_resource type="Script" path="res://level/finish.gd" id="1_tcp63"]
 
 [sub_resource type="Curve" id="Curve_dn50b"]
 min_value = -2.0
@@ -35,7 +36,13 @@ height = 0.2
 radial_segments = 10
 rings = 10
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_qxis5"]
+size = Vector3(6, 6, 6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_folnn"]
+
 [node name="Finish" type="Node3D"]
+script = ExtResource("1_tcp63")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, -1.16709, 0)
@@ -95,3 +102,20 @@ draw_pass_1 = SubResource("SphereMesh_congf")
 visible = false
 strength = 3.0
 size = Vector3(4, 4, 4)
+
+[node name="gravityzone" type="Area3D" parent="."]
+collision_layer = 8
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="gravityzone"]
+shape = SubResource("BoxShape3D_qxis5")
+
+[node name="endzone" type="Area3D" parent="."]
+collision_layer = 8
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="endzone"]
+shape = SubResource("BoxShape3D_folnn")
+
+[connection signal="body_entered" from="gravityzone" to="." method="_on_gravityzone_body_entered"]
+[connection signal="body_entered" from="endzone" to="." method="_on_endzone_body_entered"]

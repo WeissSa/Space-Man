@@ -10,10 +10,12 @@ config_version=5
 
 [application]
 
-config/name="SpaceMan"
+config/name="Swinging Through Space"
+config/version="Beta"
 run/main_scene="res://level/level.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0.129412, 0.0980392, 0.305882, 1)
+config/icon="res://HookShot.png"
 
 [display]
 

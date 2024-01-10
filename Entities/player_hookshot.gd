@@ -79,8 +79,8 @@ func apply_vertical_movement(delta: float) -> void:
 		var multiplier: float = 1
 		if is_near_hook:
 			multiplier = -1
-			if 0 >= velocity.y and velocity.y >= - MAX_SPEED:
-				multiplier -= 1
+			if 0 > velocity.y and velocity.y >= MAX_SPEED:
+				multiplier = - 10
 		velocity.y -= GRAVITY * delta * multiplier
 		if velocity.y < 0:
 			state = STATES.FALLING

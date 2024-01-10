@@ -1,0 +1,163 @@
+[gd_scene load_steps=8 format=3 uid="uid://cfm7nb47phi7t"]
+
+[ext_resource type="Texture2D" uid="uid://coymwjofbkdx0" path="res://2D Assets/environment.png" id="1_01025"]
+[ext_resource type="Script" path="res://UI/MainMenu.gd" id="1_rh455"]
+[ext_resource type="Theme" uid="uid://c10jki4t6m02l" path="res://UI/menu.tres" id="2_utj7a"]
+[ext_resource type="FontFile" uid="uid://2rbha66pmf7" path="res://font/Ghibo Talk.otf" id="4_j5sb0"]
+[ext_resource type="AudioStream" uid="uid://di36wbw87gffa" path="res://SFX/BGMusic.ogg" id="5_fb8lg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ncpv7"]
+bg_color = Color(0, 0, 0, 0.878431)
+expand_margin_left = 30.0
+expand_margin_top = 30.0
+expand_margin_right = 30.0
+expand_margin_bottom = 30.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_q81t3"]
+font = ExtResource("4_j5sb0")
+font_size = 20
+outline_size = 1
+outline_color = Color(0.619608, 0.619608, 0.619608, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rh455")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 2875.0
+offset_bottom = 1193.0
+texture = ExtResource("1_01025")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -533.5
+offset_right = 533.5
+offset_bottom = 90.0
+grow_horizontal = 2
+theme = ExtResource("2_utj7a")
+theme_override_font_sizes/font_size = 90
+text = "
+Swinging Through Space"
+horizontal_alignment = 1
+
+[node name="Buttons" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -130.0
+offset_right = 200.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 20
+
+[node name="Play" type="Button" parent="Buttons"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 8.0
+grow_horizontal = 2
+theme = ExtResource("2_utj7a")
+text = "Play"
+
+[node name="Credits" type="Button" parent="Buttons"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_utj7a")
+text = "Credits"
+
+[node name="Settings" type="Button" parent="Buttons"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("2_utj7a")
+text = "Settings
+"
+
+[node name="Credits" type="Control" parent="."]
+visible = false
+custom_minimum_size = Vector2(1280, 690)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Credits" type="Label" parent="Credits"]
+custom_minimum_size = Vector2(1220, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ncpv7")
+text = "me
+you
+everyone else"
+label_settings = SubResource("LabelSettings_q81t3")
+autowrap_mode = 3
+
+[node name="Close" type="Button" parent="Credits"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -55.0
+offset_top = -40.0
+offset_right = 55.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("2_utj7a")
+text = "Close
+"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_fb8lg")
+volume_db = -20.0
+autoplay = true
+
+[connection signal="pressed" from="Buttons/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Buttons/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="Credits/Close" to="." method="_on_close_pressed"]

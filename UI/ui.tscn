@@ -1,18 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://be14r3c7kl4ni"]
+[gd_scene load_steps=7 format=3 uid="uid://be14r3c7kl4ni"]
 
 [ext_resource type="Script" path="res://UI/ui.gd" id="1_he4oc"]
 [ext_resource type="LabelSettings" uid="uid://1chrfcj4nwwf" path="res://UI/LabelFont.tres" id="2_mo5ff"]
 [ext_resource type="Script" path="res://UI/Timer.gd" id="2_vqvnr"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6rxle"]
-bg_color = Color(0, 0, 0, 0.227451)
-expand_margin_left = 40.0
-expand_margin_top = 40.0
-expand_margin_right = 40.0
-expand_margin_bottom = 40.0
+[ext_resource type="StyleBox" uid="uid://dfqwk5sq8lxk6" path="res://UI/transparent_box.tres" id="4_ugnp4"]
+[ext_resource type="Theme" uid="uid://c10jki4t6m02l" path="res://UI/menu.tres" id="5_f7fnv"]
 
 [sub_resource type="Theme" id="Theme_r5xnv"]
-Label/styles/normal = SubResource("StyleBoxFlat_6rxle")
+Label/styles/normal = ExtResource("4_ugnp4")
 
 [node name="UI" type="Control" groups=["UI"]]
 layout_mode = 3
@@ -32,15 +27,25 @@ anchor_right = 1.0
 offset_left = -100.0
 offset_bottom = 80.0
 grow_horizontal = 0
+text = "1.14"
 label_settings = ExtResource("2_mo5ff")
 justification_flags = 0
 script = ExtResource("2_vqvnr")
 timer_on = true
 
-[node name="Paused" type="Label" parent="."]
+[node name="PauseMenu" type="Control" parent="."]
 visible = false
+custom_minimum_size = Vector2(0, 450)
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Paused" type="Label" parent="PauseMenu"]
+layout_mode = 2
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -54,3 +59,38 @@ grow_vertical = 2
 theme = SubResource("Theme_r5xnv")
 text = "Paused"
 label_settings = ExtResource("2_mo5ff")
+
+[node name="Resume" type="Button" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -68.0
+offset_top = -95.0
+offset_right = 69.0
+offset_bottom = -55.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("5_f7fnv")
+text = "Resume"
+
+[node name="Menu" type="Button" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -68.0
+offset_top = 28.0
+offset_right = 69.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("5_f7fnv")
+text = "Menu"
+
+[connection signal="button_up" from="PauseMenu/Resume" to="." method="_on_resume_button_up"]
+[connection signal="button_up" from="PauseMenu/Menu" to="." method="_on_menu_button_up"]

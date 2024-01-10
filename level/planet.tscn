@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://we4j35wab6dg" path="res://2D Assets/rock.jpg" id="1_cqcjj"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_rrmif"]
+flip_faces = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yilw3"]
 diffuse_mode = 3

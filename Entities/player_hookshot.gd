@@ -69,8 +69,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
-			neck.rotate_y(-event.relative.x * mouse_sensitivity)
-			camera.rotate_x(-event.relative.y * mouse_sensitivity)
+			neck.rotate_y(-event.relative.x * mouse_sensitivity * GlobalSettings.SENSITIVITY)
+			camera.rotate_x(-event.relative.y * mouse_sensitivity * GlobalSettings.SENSITIVITY)
 			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(90))
 			
 
@@ -172,7 +172,6 @@ func handle_gravitation(delta):
 
 
 func _physics_process(delta: float) -> void:
-
 	if is_paused:
 		return
 	if state != STATES.GRAVITATING:
@@ -196,5 +195,8 @@ func _physics_process(delta: float) -> void:
 	
 	if velocity.is_equal_approx(Vector3.ZERO):
 		state = STATES.STANDING
-		
 	animate()
+
+
+func _on_ready():
+	camera_node.fov = GlobalSettings.FOV

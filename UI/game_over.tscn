@@ -1,0 +1,124 @@
+[gd_scene load_steps=4 format=3 uid="uid://domd0t60kus1a"]
+
+[ext_resource type="Theme" uid="uid://c10jki4t6m02l" path="res://UI/menu.tres" id="1_376l4"]
+[ext_resource type="Script" path="res://UI/game_over.gd" id="2_sxjys"]
+[ext_resource type="Texture2D" uid="uid://coymwjofbkdx0" path="res://2D Assets/environment.png" id="3_bj51r"]
+
+[node name="GameOver" type="Control" groups=["game_over"]]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_376l4")
+script = ExtResource("2_sxjys")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+self_modulate = Color(0.14902, 0.643137, 0.403922, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_bj51r")
+stretch_mode = 3
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -117.5
+offset_top = 75.0
+offset_right = 117.5
+offset_bottom = 115.0
+grow_horizontal = 2
+text = "You Made it!"
+
+[node name="Score" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.5
+offset_top = 150.0
+offset_right = 150.5
+offset_bottom = 190.0
+grow_horizontal = 2
+text = "Your Time Was: "
+horizontal_alignment = 1
+
+[node name="Time" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.5
+offset_top = 225.0
+offset_right = 150.5
+offset_bottom = 265.0
+grow_horizontal = 2
+text = "92.5"
+horizontal_alignment = 1
+
+[node name="Title2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -195.0
+offset_top = 300.0
+offset_right = 195.0
+offset_bottom = 340.0
+grow_horizontal = 2
+text = "The top 3 Times are:"
+
+[node name="Score2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.5
+offset_top = 375.0
+offset_right = 150.5
+offset_bottom = 501.0
+grow_horizontal = 2
+text = "20.1
+20.2
+20.3"
+horizontal_alignment = 1
+
+[node name="Menu" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -68.5
+offset_top = -188.0
+offset_right = 68.5
+offset_bottom = -148.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("1_376l4")
+text = "Menu"
+
+[node name="Restart" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -68.5
+offset_top = -94.0
+offset_right = 68.5
+offset_bottom = -54.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("1_376l4")
+text = "Restart"
+
+[connection signal="pressed" from="Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]

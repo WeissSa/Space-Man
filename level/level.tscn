@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cyu0nw2spg2mw"]
+[gd_scene load_steps=21 format=3 uid="uid://cyu0nw2spg2mw"]
 
 [ext_resource type="Texture2D" uid="uid://coymwjofbkdx0" path="res://2D Assets/environment.png" id="1_embdn"]
 [ext_resource type="Script" path="res://level/level.gd" id="1_fb8da"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://b30fb8sa0lhjh" path="res://level/platform.tscn" id="11_t8l4q"]
 [ext_resource type="PackedScene" uid="uid://dvjsxvmhq3mjw" path="res://level/disable_tutorial.tscn" id="12_ghgri"]
 [ext_resource type="PackedScene" uid="uid://df2a0lqdcbuun" path="res://level/finish.tscn" id="14_4f7ik"]
+[ext_resource type="PackedScene" uid="uid://domd0t60kus1a" path="res://UI/game_over.tscn" id="15_0fkrn"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_qoq7p"]
 
@@ -328,3 +329,5 @@ show_behind_parent = true
 
 [node name="Finish" parent="." instance=ExtResource("14_4f7ik")]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -13.7201, 43.0061, -45.1366)
+
+[node name="GameOver" parent="." instance=ExtResource("15_0fkrn")]

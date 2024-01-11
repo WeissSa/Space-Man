@@ -17,7 +17,7 @@ func respawn():
 
 
 func end_level():
-	get_tree().quit()
+	get_tree().call_group("game_over", "show_gameover", $UI/Timer.time)
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

@@ -2,6 +2,7 @@ extends Control
 
 @onready var time: Label = $Time
 @onready var scores_label: Label = $Score2
+@onready var win_audio: AudioStreamPlayer = $WinAudio
 
 func highscore_object_to_float(object: Array):
 	var result: Array[float] = []
@@ -38,6 +39,7 @@ func show_gameover(new_time: float):
 			"highscores": scores
 		}
 		highscores.store_line(JSON.stringify(highscores_dict))
+		win_audio.play()
 	
 	var display_string: String = ""
 	for score in scores:

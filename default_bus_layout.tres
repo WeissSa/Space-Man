@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=4 format=3 uid="uid://bid7ka8ub357v"]
+[gd_resource type="AudioBusLayout" load_steps=7 format=3 uid="uid://bid7ka8ub357v"]
 
 [sub_resource type="AudioEffectReverb" id="AudioEffectReverb_x2dwp"]
 resource_name = "Reverb"
@@ -16,6 +16,16 @@ pitch_scale = 2.0
 
 [sub_resource type="AudioEffectPhaser" id="AudioEffectPhaser_m4bjo"]
 resource_name = "Phaser"
+
+[sub_resource type="AudioEffectPhaser" id="AudioEffectPhaser_pk6fi"]
+resource_name = "Phaser"
+
+[sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_hspnm"]
+resource_name = "PitchShift"
+
+[sub_resource type="AudioEffectNotchFilter" id="AudioEffectNotchFilter_5nh6l"]
+resource_name = "NotchFilter"
+resonance = 0.2
 
 [resource]
 bus/1/name = &"Player"
@@ -36,3 +46,15 @@ bus/2/volume_db = 0.0
 bus/2/send = &"Master"
 bus/2/effect/0/effect = SubResource("AudioEffectPhaser_m4bjo")
 bus/2/effect/0/enabled = true
+bus/3/name = &"Win"
+bus/3/solo = false
+bus/3/mute = false
+bus/3/bypass_fx = false
+bus/3/volume_db = 0.0
+bus/3/send = &"Master"
+bus/3/effect/0/effect = SubResource("AudioEffectPhaser_pk6fi")
+bus/3/effect/0/enabled = true
+bus/3/effect/1/effect = SubResource("AudioEffectPitchShift_hspnm")
+bus/3/effect/1/enabled = true
+bus/3/effect/2/effect = SubResource("AudioEffectNotchFilter_5nh6l")
+bus/3/effect/2/enabled = true

@@ -1,9 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://domd0t60kus1a"]
+[gd_scene load_steps=8 format=3 uid="uid://domd0t60kus1a"]
 
 [ext_resource type="Theme" uid="uid://c10jki4t6m02l" path="res://UI/menu.tres" id="1_376l4"]
 [ext_resource type="Script" path="res://UI/game_over.gd" id="2_sxjys"]
 [ext_resource type="Texture2D" uid="uid://coymwjofbkdx0" path="res://2D Assets/environment.png" id="3_bj51r"]
 [ext_resource type="AudioStream" uid="uid://dxy4q1j0qjjvp" path="res://SFX/highscore.ogg" id="4_ovkh8"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0dkfv"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(10, 10, 1)
+emission_shape = 1
+emission_sphere_radius = 128.0
+direction = Vector3(5, 5, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 3.0
+gravity = Vector3(-980, 980, 0)
+
+[sub_resource type="Gradient" id="Gradient_6k32e"]
+colors = PackedColorArray(0.23181, 0.232376, 0.0920827, 1, 0.886988, 0.854377, 0.279616, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kgxp7"]
+gradient = SubResource("Gradient_6k32e")
+width = 4
+height = 4
+fill_to = Vector2(0.33945, 0.40367)
+repeat = 1
 
 [node name="GameOver" type="Control" groups=["game_over"]]
 visible = false
@@ -127,5 +147,16 @@ volume_db = -5.622
 pitch_scale = 1.1
 bus = &"Win"
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(1338, -43)
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_0dkfv")
+texture = SubResource("GradientTexture2D_kgxp7")
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+
 [connection signal="pressed" from="Menu" to="." method="_on_menu_pressed"]
 [connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
+[connection signal="finished" from="WinAudio" to="." method="_on_win_audio_finished"]

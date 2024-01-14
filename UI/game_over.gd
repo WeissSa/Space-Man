@@ -11,10 +11,9 @@ func highscore_object_to_float(object: Array):
 	return result
 
 func show_gameover(new_time: float):
-	print("here")
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	visible = true
-	time.text = str(new_time)
+	time.text = str(new_time).substr(0, 3 +  str(new_time).find('.')) + "\n"
 	
 	if not FileAccess.file_exists("user://highscore.txt"):
 		var temp = FileAccess.open("user://highscore.txt", FileAccess.WRITE)
@@ -40,6 +39,7 @@ func show_gameover(new_time: float):
 		}
 		highscores.store_line(JSON.stringify(highscores_dict))
 		win_audio.play()
+		$GPUParticles2D.emitting = true;
 	
 	var display_string: String = ""
 	for score in scores:
@@ -54,3 +54,7 @@ func _on_menu_pressed():
 func _on_restart_pressed():
 	visible = false
 	get_tree().reload_current_scene()
+
+
+func _on_win_audio_finished():
+	$GPUParticles2D.emitting = false;

@@ -12,6 +12,9 @@ func _input(event):
 		get_tree().call_group("entity", "set_is_paused", true)
 	elif event.is_action_pressed("ui_cancel"):
 		close_ui()
+	
+	if get_tree().get_root().get_node("Level/GameOver").visible:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func close_ui():
 	mouse_filter = Control.MOUSE_FILTER_PASS

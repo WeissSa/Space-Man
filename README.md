@@ -1,4 +1,4 @@
-# Spaceman By Sam
+# Swinging Through Space By Sam
 ## For credits please look at ./attributions.txt
 
 To launch project open Godot and import the folder this repo is in.
